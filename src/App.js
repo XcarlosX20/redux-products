@@ -1,24 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
-
+import './index.css';
+import './bootstrap.min.css';
+import Header from './Components/Header';
+import Products from './Components/Products';
+import NewProduct from './Components/NewProduct';
+import EditProduct from './Components/EditProduct';
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+//redux
+import { Provider } from "react-redux";
+import store from "./store.js";
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Provider store={store}>
+        <div className="mb-4">
+          <Header />
+        </div>
+        <Switch>
+          <Route exact path="/" component={Products} />
+          <Route path="/product/new" component={NewProduct} />
+          <Route path="/product/edit/:id" component={EditProduct} />
+        </Switch>
+      </Provider>
+    </Router>
   );
 }
 
