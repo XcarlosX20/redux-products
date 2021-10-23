@@ -1,3 +1,40 @@
 {
-  "productos": []
+  "productos": [
+    {
+      "productname": "Harina PAN 1kg ",
+      "price": 1,
+      "id": 1
+    },
+    {
+      "productname": "Pasta OBA tipo Vermicelli",
+      "price": 0.54,
+      "id": 3
+    },
+    {
+      "productname": "Azucar Morena Montalban 1kg",
+      "price": 1.1,
+      "id": 4
+    },
+    {
+      "productname": "Carne molida 1 KILO",
+      "price": 2.5,
+      "id": 5
+    },
+    {
+      "productname": "Arroz Blanco Mary",
+      "price": 0.92,
+      "id": 6
+    },
+    {
+      "productname": "Salsa de tomate pampero 350gr",
+      "price": 0.5,
+      "id": 7
+    },
+    {
+      "productname": "1",
+      "price": 1,
+      "img": "https://res.cloudinary.com/do5yybhwe/image/upload/v1634945670/sjqtruiv8sb6ahgxcnz7.jpg",
+      "id": "024dddfe-3a8f-421e-befc-eea1f7137baa"
+    }
+  ]
 }

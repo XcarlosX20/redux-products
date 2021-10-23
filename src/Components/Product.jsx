@@ -8,7 +8,7 @@ import {deleteProductAction,getEditProductAction} from "../Actions/ActionsProduc
 const Product = ({ singleProduct }) => {
     const dispatch = useDispatch();
     let history = useHistory();
-    const { productname, price, id } = singleProduct;
+    const { productname, price, id, img } = singleProduct;
     const editProduct = () => {
         dispatch(getEditProductAction(singleProduct));
         history.push(`/product/edit/${id}`);
@@ -31,6 +31,9 @@ const Product = ({ singleProduct }) => {
     }
     return (
         <tr>
+            <td>
+                <img className="img-view" src={img ? img : "https://res.cloudinary.com/do5yybhwe/image/upload/v1634941979/nophoto-removebg-preview-min_ve6bfv.png"} alt={productname} /> 
+            </td>
             <td>{productname}</td>
             <td>{formatAmount(price, "$")}</td>
             <td><button className="btn btn-primary" onClick={() => editProduct()}>Edit</button>

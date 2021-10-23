@@ -1,30 +1,37 @@
 import { useState } from 'react';
+import { v4 as uuidv4 } from 'uuid';
 //actions of redux
 import { addProductAction } from "../Actions/ActionsProducts";
 import { showAlertAction } from "../Actions/ActionsAlert";
 import { useDispatch, useSelector } from "react-redux";
+import { uploadImage } from '../Services/uploadImage';
 const NewProduct = ({history}) => {
     //dispact para usar con action
     const [productname, setProductname] = useState("");
     const [price, setPrice] = useState(0);
+    const [image, setImage] = useState({img_html: "", image_to_Upload: ""});
     const dispatch = useDispatch();
     //get the store
     const { loading, error} = useSelector(state => state.products)
     const alert = useSelector(state=> state.alert.alert);
+    const {img_html, image_to_Upload } = image;
    
     const addProducto = product => dispatch(addProductAction(product));
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
-        if (productname === "" || price === 0) {
+        if (productname === "" || price === 0 || img_html === "" || image_to_Upload === "" ) {
             const msg = {
                 txt: "all fields are required",
                 class: "alert text-danger text-center text-uppercase p-3"
             }
             dispatch(showAlertAction(msg))
         }else{
+        const img = await uploadImage(image_to_Upload);
         addProducto({
             productname,
-            price
+            price, 
+            img,
+            id: uuidv4()
         });
         setProductname("");
         setPrice(0);
@@ -32,6 +39,14 @@ const NewProduct = ({history}) => {
             history.push("/");
         },1000)}
     }
+    const handleImage = (e) => {
+        if(e.target.files[0]){
+            setImage({...image,img_html: URL.createObjectURL(e.target.files[0]), image_to_Upload: e.target.files[0]});
+        }else{
+            setImage({img_html: "", image_to_Upload: ""});
+        }
+    }
+    
     return (
         <div className="row justify-content-center">
             <div className="col-md-8">
@@ -54,6 +69,14 @@ const NewProduct = ({history}) => {
                                     value={price}
                                     name="price"
                                 />
+                            </div>
+                            <div className="form-group my-3">
+                                <label>Imagen:</label>
+                                <input onChange={handleImage} type="file" name="img" className="mb-3" />
+                                <div className="img-view">
+                                    {img_html ?  <img src={img_html} alt={productname} />: null}
+                                </div>
+                             
                             </div>
                             <button
                                 type="submit"

@@ -55,3 +55,12 @@ td .btn{
 .acciones > *{
   flex: 1;
 }
+.img-view{
+  margin: 0 auto;
+  width: 100px;
+  height: 100px;
+}
+.img-view img{
+  width: 100%;
+  height: 100%;
+}

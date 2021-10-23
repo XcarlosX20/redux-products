@@ -1,5 +1,6 @@
 import Swal from 'sweetalert2';
 import axiosClient from "../config/axios";
+import { uploadImage } from '../Services/uploadImage';
 import {
     ADD_PRODUCT,
     ADD_PRODUCT_SUCCESS,
@@ -22,6 +23,7 @@ import {
            try{
             //insert to API
             await axiosClient.post("/productos", product);
+            
             //setState of products
             dispatch(addProductSuccess(product));
             //alert
