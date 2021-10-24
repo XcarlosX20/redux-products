@@ -7,23 +7,27 @@
     },
     {
       "productname": "Pasta OBA tipo Vermicelli",
-      "price": 0.54,
-      "id": 3
+      "price": 0.45,
+      "id": 3,
+      "img": "https://res.cloudinary.com/do5yybhwe/image/upload/v1635037860/uzbbpfd66lykkulmitrl.jpg"
     },
     {
       "productname": "Azucar Morena Montalban 1kg",
       "price": 1.1,
-      "id": 4
+      "id": 4,
+      "img": "https://res.cloudinary.com/do5yybhwe/image/upload/v1635037993/dh7omcvvyculedhgs7ps.jpg"
     },
     {
-      "productname": "Carne molida 1 KILO",
-      "price": 2.5,
-      "id": 5
+      "productname": "Pollo (1KG)",
+      "price": 2,
+      "id": 5,
+      "img": "https://res.cloudinary.com/do5yybhwe/image/upload/v1635039422/te2hs2ai1ixwok5ba3za.jpg"
     },
     {
       "productname": "Arroz Blanco Mary",
-      "price": 0.92,
-      "id": 6
+      "price": 1.1,
+      "id": 6,
+      "img": "https://res.cloudinary.com/do5yybhwe/image/upload/v1635039614/nq4s7sd5tegcrlll584b.jpg"
     },
     {
       "productname": "Salsa de tomate pampero 350gr",
@@ -31,10 +35,28 @@
       "id": 7
     },
     {
-      "productname": "1",
-      "price": 1,
-      "img": "https://res.cloudinary.com/do5yybhwe/image/upload/v1634945670/sjqtruiv8sb6ahgxcnz7.jpg",
-      "id": "024dddfe-3a8f-421e-befc-eea1f7137baa"
+      "productname": "Zapatos",
+      "price": 20,
+      "img": "https://res.cloudinary.com/do5yybhwe/image/upload/v1635017696/wtqbu7kwob8ddvmlxo53.webp",
+      "id": "f98ef607-c36f-4466-a5fd-87893999848f"
+    },
+    {
+      "productname": "lamborghini3",
+      "price": 250000,
+      "id": "12432acf-30f6-4dc3-b911-ef7eea499122",
+      "img": "https://res.cloudinary.com/do5yybhwe/image/upload/v1635035351/siufgi6spf0mkzvmcypr.jpg"
+    },
+    {
+      "productname": "pizza mediana special",
+      "price": 10,
+      "id": "3ea54d64-f314-4c03-929b-a44d181c41b9",
+      "img": "https://res.cloudinary.com/do5yybhwe/image/upload/v1635036196/v0przvnizn75qwipo5sd.jpg"
+    },
+    {
+      "productname": "Pezcado",
+      "price": 2,
+      "id": "99612ff1-7e8e-41f0-a9ee-a5b9633c5cd4",
+      "img": "https://res.cloudinary.com/do5yybhwe/image/upload/v1635036299/scmure2u96168wo13fl6.png"
     }
   ]
 }

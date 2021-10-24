@@ -11,6 +11,7 @@ import {
     GET_EDIT_PRODUCT,
     EDIT_PRODUCT_ERROR,
     EDIT_PRODUCT_SUCCESS,
+    EDIT_PRODUCT_START,
 } from "../types";
 const initialState = {
     products: [],
@@ -23,8 +24,9 @@ export default function (state = initialState, action) {
     switch (action.type) {
         case DOWNLOAD_PRODUCTS_START:
         case ADD_PRODUCT:
+        case EDIT_PRODUCT_START:
             return {
-                ...state, loading: action.payload
+                ...state, loading: true 
             }
         case ADD_PRODUCT_SUCCESS:
             return {
@@ -64,6 +66,7 @@ export default function (state = initialState, action) {
         case EDIT_PRODUCT_SUCCESS:
             return {
                 ...state,
+                loading: false,
                 productEdit: null,
                 products: state.products.map(product => product.id === action.payload.id ? product = action.payload : product)
             }

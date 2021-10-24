@@ -22,8 +22,10 @@ import {
            dispatch(addProduct());
            try{
             //insert to API
+            const {image_to_Upload} = product
+            product.img = await uploadImage(image_to_Upload);
+            delete product.image_to_Upload;
             await axiosClient.post("/productos", product);
-            
             //setState of products
             dispatch(addProductSuccess(product));
             //alert
@@ -115,6 +117,9 @@ export function editProductAction(product){
     return async (dispatch) => {
         dispatch(editProduct(product));
     try{
+        const {image_to_Upload} = product
+        product.img = await uploadImage(image_to_Upload);
+        delete product.image_to_Upload;
         await axiosClient.put(`/productos/${product.id}`, product);
         dispatch(editProductSuccess(product));
     }catch(err){

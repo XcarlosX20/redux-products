@@ -7,9 +7,12 @@ const EditProduct = () => {
     const dispatch = useDispatch();
     const [productname, setProductname] = useState("");
     const [price, setPrice] = useState(0);
+    const [image, setImage] = useState({img_html: "", image_to_Upload: ""});
+    const {img_html, image_to_Upload } = image;
     let history = useHistory();
     const editProduct = useSelector(state => state.products.productEdit);
     const alert = useSelector(state => state.alert.alert);
+    const { loading, error} = useSelector(state => state.products)
     useEffect(() => {
         if (!editProduct) {
             history.push(`/`);
@@ -18,15 +21,22 @@ const EditProduct = () => {
         const getEditProduct = () => {
             setProductname(editProduct.productname);
             setPrice(editProduct.price);
+            setImage({...image, img_html: editProduct.img});
         }
         getEditProduct();
     }, [editProduct, history]);
 
-    const onSubmit = (e) => {
+    const onSubmit = async(e) => {
         e.preventDefault();
-        if (productname === "" || price === 0) {
+        if (productname === "" || price === 0 || img_html === "" ) {
             const msg = {
                 txt: "all fields are required",
+                class: "alert text-danger text-center text-uppercase p-3"
+            }
+            dispatch(showAlertAction(msg))
+        }else if(image_to_Upload === ""){
+            const msg = {
+                txt: "Put some photo",
                 class: "alert text-danger text-center text-uppercase p-3"
             }
             dispatch(showAlertAction(msg))
@@ -34,10 +44,17 @@ const EditProduct = () => {
             e.preventDefault();
             const { id } = editProduct;
             const product = {
-                productname, price, id
+                productname, price, id, image_to_Upload
             }
-            dispatch(editProductAction(product))
+            await dispatch(editProductAction(product))
             history.push(`/`)
+        }
+    }
+    const handleImage = (e) => {
+        if(e.target.files[0]){
+            setImage({...image,img_html: URL.createObjectURL(e.target.files[0]), image_to_Upload: e.target.files[0]});
+        }else{
+            setImage({img_html: "", image_to_Upload: ""});
         }
     }
     return (
@@ -46,7 +63,12 @@ const EditProduct = () => {
                 <div className="card">
                     <div className="card-body">
                         <h2 className="text-center mb-4 font-weight-bold">Edit product</h2>
-                        {alert != null ? (<div className={alert.class}>{alert.txt}</div>) : null}
+                        {alert ? (<div className={alert.class} role="alert">{alert.txt}</div>) : null}
+                        {loading ? <div className="alert alert-info mt-3" role="alert">Loading</div>: null}
+                        {error ?
+                        (<div className="alert alert-danger mt-3" role="alert">
+                            There was a mistake
+                        </div>):null}
                         <form onSubmit={onSubmit}>
                             <div className="form-group">
                                 <label>Product name:</label>
@@ -60,11 +82,19 @@ const EditProduct = () => {
                                     onChange={(e) => setPrice(Number(e.target.value))}
                                     value={price} type="number" name="price"/>
                             </div>
+                            <div className="form-group my-3">
+                                <label>Imagen:</label>
+                                <input onChange={handleImage} type="file" accept="image/*" name="img" className="mb-3" />
+                                <div className="image-drop">
+                                    {img_html ?  <img className="img-fluid" src={img_html} alt={productname} />:   <p>Browse or drop your image</p>}
+                                </div>
+                            </div>
                             <button
                                 type="submit"
                                 className="btn btn-primary font-weight-bold text-uppercase d-block w-100"
                             >Save product</button>
                         </form>
+                        
                     </div>
 
                 </div>

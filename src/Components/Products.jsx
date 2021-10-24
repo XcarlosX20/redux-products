@@ -16,7 +16,7 @@ const Products = () => {
         <div className="container">
             <h2 className="text-center my-4">Products List</h2>
             {error ?
-                (<div class="alert alert-danger mb-2" role="alert">
+                (<div className="alert alert-danger mb-2" role="alert">
                     There was an error loading products
                 </div>) : null}
             <div className="table-responsive">

@@ -32,7 +32,7 @@ const Product = ({ singleProduct }) => {
     return (
         <tr>
             <td>
-                <img className="img-view" src={img ? img : "https://res.cloudinary.com/do5yybhwe/image/upload/v1634941979/nophoto-removebg-preview-min_ve6bfv.png"} alt={productname} /> 
+                {img ? (<img className="img-view" loading="lazy" src={img} alt={productname} /> ): (<img width="60px" height="60px" className="img-fluid" src="https://res.cloudinary.com/do5yybhwe/image/upload/v1634941979/nophoto-removebg-preview-min_ve6bfv.png"></img>) }
             </td>
             <td>{productname}</td>
             <td>{formatAmount(price, "$")}</td>

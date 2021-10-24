@@ -4,7 +4,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { addProductAction } from "../Actions/ActionsProducts";
 import { showAlertAction } from "../Actions/ActionsAlert";
 import { useDispatch, useSelector } from "react-redux";
-import { uploadImage } from '../Services/uploadImage';
 const NewProduct = ({history}) => {
     //dispact para usar con action
     const [productname, setProductname] = useState("");
@@ -26,18 +25,16 @@ const NewProduct = ({history}) => {
             }
             dispatch(showAlertAction(msg))
         }else{
-        const img = await uploadImage(image_to_Upload);
-        addProducto({
+        await addProducto({
             productname,
             price, 
-            img,
+            image_to_Upload,
             id: uuidv4()
         });
         setProductname("");
         setPrice(0);
-        setTimeout(()=>{
-            history.push("/");
-        },1000)}
+        history.push("/");
+       }
     }
     const handleImage = (e) => {
         if(e.target.files[0]){
@@ -53,7 +50,12 @@ const NewProduct = ({history}) => {
                 <div className="card">
                     <div className="card-body">
                         <h2 className="text-center mb-4 font-weight-bold">Add new product</h2>
-                        {alert != null ? (<div className={alert.class}>{alert.txt}</div>):null}
+                        {alert != null ? (<div className={alert.class} role="alert">{alert.txt}</div>):null}
+                        {loading ? <div className="alert alert-info mt-3" role="alert">Loading</div>: null}
+                        {error ?
+                        (<div className="alert alert-danger mt-3" role="alert">
+                            There was a mistake
+                        </div>):null}
                         <form onSubmit={onSubmit}>
                             <div className="form-group">
                                 <label>Product name:</label>
@@ -72,22 +74,17 @@ const NewProduct = ({history}) => {
                             </div>
                             <div className="form-group my-3">
                                 <label>Imagen:</label>
-                                <input onChange={handleImage} type="file" name="img" className="mb-3" />
-                                <div className="img-view">
-                                    {img_html ?  <img src={img_html} alt={productname} />: null}
+                                <input onChange={handleImage} type="file" accept="image/*" name="img" className="mb-3" />
+                                <div className="image-drop">
+                                    {img_html ?  <img className="img-fluid" src={img_html} alt={productname} />:   <p>Browse or drop your image</p>}
                                 </div>
-                             
                             </div>
                             <button
                                 type="submit"
                                 className="btn btn-primary font-weight-bold text-uppercase d-block w-100"
                             >add</button>
                         </form>
-                        {loading ? <div className="alert alert-info mt-3">Loading</div>: null}
-                        {error ?
-                        (<div class="alert alert-danger mt-3" role="alert">
-                            There was a mistake
-                        </div>):null}
+                       
                     </div>
 
                 </div>
