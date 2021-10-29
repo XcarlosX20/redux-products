@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 const NewProduct = ({history}) => {
     //dispact para usar con action
     const [productname, setProductname] = useState("");
-    const [price, setPrice] = useState(0);
+    const [price, setPrice] = useState(null);
     const [image, setImage] = useState({img_html: "", image_to_Upload: ""});
     const dispatch = useDispatch();
     //get the store
@@ -18,7 +18,7 @@ const NewProduct = ({history}) => {
     const addProducto = product => dispatch(addProductAction(product));
     const onSubmit = async (e) => {
         e.preventDefault();
-        if (productname === "" || price === 0 || img_html === "" || image_to_Upload === "" ) {
+        if (productname === "" || !price|| img_html === "" || image_to_Upload === "" ) {
             const msg = {
                 txt: "all fields are required",
                 class: "alert text-danger text-center text-uppercase p-3"
@@ -27,7 +27,7 @@ const NewProduct = ({history}) => {
         }else{
         await addProducto({
             productname,
-            price, 
+            price : Number(price), 
             image_to_Upload,
             id: uuidv4()
         });
@@ -66,9 +66,9 @@ const NewProduct = ({history}) => {
                             </div>
                             <div className="form-group">
                                 <label>Price USD:</label>
-                                <input onChange={(e) => setPrice(Number(e.target.value))}
+                                <input onChange={(e) => setPrice(e.target.value)}
                                     className="form-control" type="number"
-                                    value={price}
+                                    value={price} step="0.01" min="0"
                                     name="price"
                                 />
                             </div>

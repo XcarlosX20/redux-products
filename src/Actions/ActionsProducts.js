@@ -117,9 +117,13 @@ export function editProductAction(product){
     return async (dispatch) => {
         dispatch(editProduct(product));
     try{
-        const {image_to_Upload} = product
-        product.img = await uploadImage(image_to_Upload);
-        delete product.image_to_Upload;
+        const {image_to_Upload, img_html} = product.image
+        if(image_to_Upload){
+            product.img = await uploadImage(image_to_Upload);
+        }else{
+            product.img = img_html;
+        }
+        delete product.image;
         await axiosClient.put(`/productos/${product.id}`, product);
         dispatch(editProductSuccess(product));
     }catch(err){

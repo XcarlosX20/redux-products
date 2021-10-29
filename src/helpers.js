@@ -1,3 +1,4 @@
 export const formatAmount = (amount, currency) => {
-    return `${currency} ` + amount.toFixed(2);
+   let toNumber = Number(amount)
+   if(toNumber)  return `${currency} ` + toNumber.toFixed(2);
 } 

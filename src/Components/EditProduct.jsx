@@ -6,8 +6,8 @@ import { showAlertAction } from "../Actions/ActionsAlert"
 const EditProduct = () => {
     const dispatch = useDispatch();
     const [productname, setProductname] = useState("");
-    const [price, setPrice] = useState(0);
-    const [image, setImage] = useState({img_html: "", image_to_Upload: ""});
+    const [price, setPrice] = useState(null);
+    const [image, setImage] = useState({img_html: "", image_to_Upload: null});
     const {img_html, image_to_Upload } = image;
     let history = useHistory();
     const editProduct = useSelector(state => state.products.productEdit);
@@ -28,23 +28,17 @@ const EditProduct = () => {
 
     const onSubmit = async(e) => {
         e.preventDefault();
-        if (productname === "" || price === 0 || img_html === "" ) {
+        if (productname === "" || !price || img_html === "" ) {
             const msg = {
                 txt: "all fields are required",
                 class: "alert text-danger text-center text-uppercase p-3"
             }
             dispatch(showAlertAction(msg))
-        }else if(image_to_Upload === ""){
-            const msg = {
-                txt: "Put some photo",
-                class: "alert text-danger text-center text-uppercase p-3"
-            }
-            dispatch(showAlertAction(msg))
-        } else {
+        }else {
             e.preventDefault();
             const { id } = editProduct;
             const product = {
-                productname, price, id, image_to_Upload
+                productname, price : Number(price), id, image
             }
             await dispatch(editProductAction(product))
             history.push(`/`)
@@ -55,6 +49,11 @@ const EditProduct = () => {
             setImage({...image,img_html: URL.createObjectURL(e.target.files[0]), image_to_Upload: e.target.files[0]});
         }else{
             setImage({img_html: "", image_to_Upload: ""});
+        }
+    }
+    const disabledEdit = () => {
+        if(price === editProduct.price && productname === editProduct.productname && image_to_Upload === null){
+            return true
         }
     }
     return (
@@ -79,8 +78,8 @@ const EditProduct = () => {
                             <div className="form-group">
                                 <label>Price:</label>
                                 <input className="form-control"
-                                    onChange={(e) => setPrice(Number(e.target.value))}
-                                    value={price} type="number" name="price"/>
+                                    onChange={(e) => setPrice((e.target.value))}
+                                    value={price} type="number" step="0.01" min="0" name="price"/>
                             </div>
                             <div className="form-group my-3">
                                 <label>Imagen:</label>
@@ -90,6 +89,7 @@ const EditProduct = () => {
                                 </div>
                             </div>
                             <button
+                                disabled={editProduct ? disabledEdit() : false}
                                 type="submit"
                                 className="btn btn-primary font-weight-bold text-uppercase d-block w-100"
                             >Save product</button>
