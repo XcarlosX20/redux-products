@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 const NewProduct = ({history}) => {
     //dispact para usar con action
     const [productname, setProductname] = useState("");
-    const [price, setPrice] = useState(null);
+    const [price, setPrice] = useState(0);
     const [image, setImage] = useState({img_html: "", image_to_Upload: ""});
     const dispatch = useDispatch();
     //get the store

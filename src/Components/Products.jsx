@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
 import { getProductsAction } from "../Actions/ActionsProducts";
 import Product from './Product';
+import Search from './Search';
 const Products = () => {
     const dispatch = useDispatch();
     useEffect(() => {
@@ -11,9 +12,11 @@ const Products = () => {
     }, [dispatch])
     //state products list
     const { products, error } = useSelector(state => state.products);
-    console.log(products);
     return (
         <div className="container">
+            <div className="d-flex justify-content-center">
+                <Search products={products}/>
+            </div>
             <h2 className="text-center my-4">Products List</h2>
             {error ?
                 (<div className="alert alert-danger mb-2" role="alert">

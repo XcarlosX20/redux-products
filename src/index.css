@@ -46,7 +46,21 @@ td .btn{
   width: 100px;
   height: 100px;
 }
-
+button[type="submit"]:disabled{
+  background-color:#FFF;
+  color: #000;
+  border: #ccc 2px solid;
+}
+button[type="submit"]{
+  transition: .3s all ease;
+  cursor: pointer;
+  background-color:#000;
+  color: #FFF;
+  border: transparent 2px solid;
+}
+.cursor-danger{
+  cursor:none
+}
 @media (min-width:768px){
   
   input[type=text], input[type=number] {

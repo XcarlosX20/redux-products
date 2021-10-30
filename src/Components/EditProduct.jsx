@@ -6,7 +6,7 @@ import { showAlertAction } from "../Actions/ActionsAlert"
 const EditProduct = () => {
     const dispatch = useDispatch();
     const [productname, setProductname] = useState("");
-    const [price, setPrice] = useState(null);
+    const [price, setPrice] = useState(0);
     const [image, setImage] = useState({img_html: "", image_to_Upload: null});
     const {img_html, image_to_Upload } = image;
     let history = useHistory();
@@ -52,8 +52,9 @@ const EditProduct = () => {
         }
     }
     const disabledEdit = () => {
-        if(price === editProduct.price && productname === editProduct.productname && image_to_Upload === null){
-            return true
+        if(editProduct ){
+            const condition = price == editProduct.price && productname === editProduct.productname && image_to_Upload === null;
+            return condition;
         }
     }
     return (
@@ -83,13 +84,13 @@ const EditProduct = () => {
                             </div>
                             <div className="form-group my-3">
                                 <label>Imagen:</label>
-                                <input onChange={handleImage} type="file" accept="image/*" name="img" className="mb-3" />
+                                <input onChange={handleImage} type="file" accept="image/*" name="img" className="mb-3"/>
                                 <div className="image-drop">
                                     {img_html ?  <img className="img-fluid" src={img_html} alt={productname} />:   <p>Browse or drop your image</p>}
                                 </div>
                             </div>
                             <button
-                                disabled={editProduct ? disabledEdit() : false}
+                                disabled={disabledEdit()}
                                 type="submit"
                                 className="btn btn-primary font-weight-bold text-uppercase d-block w-100"
                             >Save product</button>

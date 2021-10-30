@@ -2,21 +2,33 @@
   "productos": [
     {
       "productname": "Azucar Montalban",
-      "price": 0.9,
+      "price": 0.8,
       "id": "3f588e27-607d-4f10-8e48-81dea66d39c0",
       "img": "https://res.cloudinary.com/do5yybhwe/image/upload/v1635473039/jcsn9f4lhnotiszskgrg.jpg"
     },
     {
       "productname": "Flips",
-      "price": 2.12,
+      "price": 2,
       "id": "f1d1ef2e-63d4-4ff4-9282-3c35c3c1b5b7",
       "img": "https://res.cloudinary.com/do5yybhwe/image/upload/v1635473356/cddmrbyqspob9laelvrf.jpg"
     },
     {
-      "productname": "Salary",
-      "price": 5000,
-      "id": "51dc0883-d2c7-4edd-85c1-d59bb930a811",
-      "img": "https://res.cloudinary.com/do5yybhwe/image/upload/v1635473998/vbhogecegb6mt6buiz05.png"
+      "productname": "Pasta OBA tipo Vermicelli",
+      "price": 0.6,
+      "id": "e97a98a4-d71f-4ffa-9751-6af3d826814a",
+      "img": "https://res.cloudinary.com/do5yybhwe/image/upload/v1635475443/cvau9atlw3dcajbu9tu5.jpg"
+    },
+    {
+      "productname": "Zapatos",
+      "price": 20,
+      "id": "c9883e3c-4b59-4ffb-9f57-175c00665323",
+      "img": "https://res.cloudinary.com/do5yybhwe/image/upload/v1635543207/k08cxclie9zgjrk5d5g1.webp"
+    },
+    {
+      "productname": "Pepsi 1.5Lt",
+      "price": 1.2,
+      "id": "64a2a333-3d13-45ec-85fe-ddc204291cc2",
+      "img": "https://res.cloudinary.com/do5yybhwe/image/upload/v1635543412/ilzlciup03igtfkut9l0.jpg"
     }
   ]
 }
