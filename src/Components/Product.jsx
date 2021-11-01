@@ -4,7 +4,7 @@ import Swal from 'sweetalert2';
 import {formatAmount} from ".././helpers";
 //Redux
 import { useDispatch } from 'react-redux';
-import {deleteProductAction,getEditProductAction} from "../Actions/ActionsProducts"
+import {deleteProductAction,getEditProductAction} from "../Actions/ActionsProducts";
 const Product = ({ singleProduct }) => {
     const dispatch = useDispatch();
     let history = useHistory();
@@ -32,7 +32,7 @@ const Product = ({ singleProduct }) => {
     return (
         <tr>
             <td>
-                {img ? (<img className="img-view" loading="lazy" src={img} alt={productname} /> ): (<img width="60px" height="60px" className="img-fluid" src="https://res.cloudinary.com/do5yybhwe/image/upload/v1634941979/nophoto-removebg-preview-min_ve6bfv.png"></img>) }
+                {img ? (<img className="img-view" loading="lazy" src={img} alt={productname} /> ): (<img width="60px" height="60px" className="img-fluid" src="https://res.cloudinary.com/do5yybhwe/image/upload/v1634941979/nophoto-removebg-preview-min_ve6bfv.png" alt={productname}/>) }
             </td>
             <td>{productname}</td>
             <td>{formatAmount(price, "$")}</td>

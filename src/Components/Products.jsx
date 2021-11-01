@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
 import { getProductsAction } from "../Actions/ActionsProducts";
 import Product from './Product';
-import Search from './Search';
+import Search from './Searchbar/Search';
 const Products = () => {
     const dispatch = useDispatch();
     useEffect(() => {
@@ -15,7 +15,9 @@ const Products = () => {
     return (
         <div className="container">
             <div className="d-flex justify-content-center">
-                <Search products={products}/>
+                <div className="row search-bar">
+                    <Search products={products}/>
+                </div>
             </div>
             <h2 className="text-center my-4">Products List</h2>
             {error ?

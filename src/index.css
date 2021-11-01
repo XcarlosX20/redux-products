@@ -24,6 +24,21 @@ h1 a.text-light:hover {
   font-weight: bold;
   text-transform: uppercase;
 }
+.search-bar{
+  width: 100%;
+}
+.search-bar li{
+  cursor: pointer;
+}
+.search-bar .item-list div{
+  display: flex;
+  flex-direction: column;
+  align-self: center;
+}
+.result-invisible{
+  overflow: hidden;
+  visibility: hidden;
+}
 td .btn{
   width: 7rem;
 }
@@ -61,15 +76,6 @@ button[type="submit"]{
 .cursor-danger{
   cursor:none
 }
-@media (min-width:768px){
-  
-  input[type=text], input[type=number] {
-   font-size: 1.6rem;
-  }
-    .navbar .btn {
-      flex: 0 1 auto;
-    }
-}
 .acciones {
   margin: 1rem 0;
 }
@@ -85,3 +91,15 @@ button[type="submit"]{
   width: 100px;
   height: 100px;
 }
+@media (min-width:768px){
+  .search-bar{
+    width: 75%;
+  }
+  input[type=text], input[type=number] {
+   font-size: 1.6rem;
+  }
+    .navbar .btn {
+      flex: 0 1 auto;
+    }
+}
+

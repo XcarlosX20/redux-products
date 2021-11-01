@@ -26,9 +26,15 @@
     },
     {
       "productname": "Pepsi 1.5Lt",
-      "price": 1.2,
+      "price": 1.1,
       "id": "64a2a333-3d13-45ec-85fe-ddc204291cc2",
       "img": "https://res.cloudinary.com/do5yybhwe/image/upload/v1635543412/ilzlciup03igtfkut9l0.jpg"
+    },
+    {
+      "productname": "Pollo 1.1kg",
+      "price": 2,
+      "id": "6b0e5106-503d-42fd-93f4-a4a2ae8e5e12",
+      "img": "https://res.cloudinary.com/do5yybhwe/image/upload/v1635636342/gz0mrc9gldirmdyhxxmn.jpg"
     }
   ]
 }
