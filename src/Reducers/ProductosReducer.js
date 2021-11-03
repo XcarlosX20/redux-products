@@ -12,19 +12,24 @@ import {
     EDIT_PRODUCT_ERROR,
     EDIT_PRODUCT_SUCCESS,
     EDIT_PRODUCT_START,
+    GET_SEARCH_RESULTS_START,
+    GET_SEARCH_RESULTS_SUCCESS,
+    GET_SEARCH_RESULTS_ERROR
 } from "../types";
 const initialState = {
     products: [],
     error: null,
     loading: false,
     productDelete: null,
-    productEdit: null
+    productEdit: null,
+    searchResults: null
 }
 export default function (state = initialState, action) {
     switch (action.type) {
         case DOWNLOAD_PRODUCTS_START:
         case ADD_PRODUCT:
-        case EDIT_PRODUCT_START:
+        case EDIT_PRODUCT_START:    
+        case GET_SEARCH_RESULTS_START:
             return {
                 ...state, loading: true 
             }
@@ -33,6 +38,12 @@ export default function (state = initialState, action) {
                 ...state, loading: false,
                 products: [...state.products, action.payload]
             }
+        case GET_SEARCH_RESULTS_SUCCESS:
+            return {
+                ...state, loading: false,
+                searchResults: action.payload
+            }
+        case GET_SEARCH_RESULTS_ERROR:
         case DOWNLOAD_PRODUCTS_ERROR:
         case ADD_PRODUCT_ERROR:
         case DELETE_PRODUCT_ERROR:

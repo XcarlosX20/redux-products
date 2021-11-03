@@ -15,6 +15,9 @@ import {
     EDIT_PRODUCT_START,
     EDIT_PRODUCT_ERROR,
     EDIT_PRODUCT_SUCCESS,
+    GET_SEARCH_RESULTS_START,
+    GET_SEARCH_RESULTS_SUCCESS,
+    GET_SEARCH_RESULTS_ERROR
    } from "../types";
    //CREATE A NEW PRODUCT
    export function addProductAction(product) {
@@ -141,5 +144,23 @@ const editProductSuccess = (product) => ({
 });
 const editProductError = (boolean) => ({
     type: EDIT_PRODUCT_ERROR,
+    payload: boolean
+})
+export function getSearchResultsAction(results) {
+    return (dispatch) => {
+        try{
+        dispatch(getSearchResultsSuccess(results));
+         
+        }catch(err){
+         dispatch(getSearchResultsError(true))
+        }
+    }
+}
+const getSearchResultsSuccess = (results) => ({
+    type: GET_SEARCH_RESULTS_SUCCESS,
+    payload: results
+})
+const getSearchResultsError = boolean => ({
+    type: GET_SEARCH_RESULTS_ERROR,
     payload: boolean
 })

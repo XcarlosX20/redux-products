@@ -53,6 +53,9 @@ td .btn{
 .navbar .btn {
   flex:1;
 }
+input[type="file"]{
+ max-width: 100%;
+}
 .image-drop{
   text-align: center;
 }

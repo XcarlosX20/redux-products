@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 //redux
 import { Provider } from "react-redux";
 import store from "./store.js";
+import Requests from './Components/Pages/Requests';
 function App() {
   return (
     <Router>
@@ -19,6 +20,7 @@ function App() {
           <Route exact path="/" component={Products} />
           <Route path="/product/new" component={NewProduct} />
           <Route path="/product/edit/:id" component={EditProduct} />
+          <Route path="/requests" component={Requests} />  
         </Switch>
       </Provider>
     </Router>

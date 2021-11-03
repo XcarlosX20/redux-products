@@ -11,28 +11,36 @@ const Products = () => {
         loadProducts();
     }, [dispatch])
     //state products list
-    const { products, error } = useSelector(state => state.products);
+    const { products, error, searchResults } = useSelector(state => state.products);
+    console.log(searchResults);
     return (
         <div className="container">
-            <div className="d-flex justify-content-center">
-                <div className="row search-bar">
-                    <Search products={products}/>
-                </div>
-            </div>
+            <Search  products={products}/>
             <h2 className="text-center my-4">Products List</h2>
             {error ?
                 (<div className="alert alert-danger mb-2" role="alert">
                     There was an error loading products
                 </div>) : null}
             <div className="table-responsive">
-                {products.length <= 0 ? (
-                    <div className="text-center p-5">
-                    <p>you don't have any added product. <br />
-                    add your first product</p>
-                    <Link className="btn btn-danger nuevo-post d-block d-md-inline-block"
-                        to={"/product/new"}>Add  &#43;</Link>
-                    </div>
-                ):
+                {searchResults ? 
+                (<table className="table table-striped">
+                <thead className="bg-primary table-dark">
+                    <tr>
+                        <th scope="col">Image:</th>
+                        <th scope="col">Name:</th>
+                        <th scope="col">Price:</th>
+                        <th scope="col">Actions :</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {
+                        searchResults.map(singleProduct => (
+                            <Product key={singleProduct.id} singleProduct={singleProduct} />
+                        ))
+                    }
+                </tbody>
+            </table>)  
+                :
                 (<table className="table table-striped">
                     <thead className="bg-primary table-dark">
                         <tr>
@@ -50,6 +58,7 @@ const Products = () => {
                         }
                     </tbody>
                 </table>)}
+                {searchResults !== null & searchResults < 1 ? <div className="alert "><p className="text-danger text-center">No results</p></div> : null}
             </div>
         </div>
 
