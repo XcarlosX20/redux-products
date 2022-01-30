@@ -1,18 +1,15 @@
-import React, { useEffect } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
-import { getRequestAction } from '../../Actions/ActionsRequests'
+import React from "react";
+import RequestsTable from "../Requests/RequestsTable";
+
 const Requests = () => {
-    const dispatch = useDispatch();
-    useEffect(() => {
-        const loadRequests = () => dispatch(getRequestAction());
-        loadRequests();
-    }, [dispatch])
-    const { requests } = useSelector(state => state.request);
-    console.log(requests);
-    return ( 
+  return (
     <>
-        <h2>Requests</h2>
-    </> );
-}
- 
+      <div className="container">
+        <h2>Orders</h2>
+        <RequestsTable />
+      </div>
+    </>
+  );
+};
+
 export default Requests;
