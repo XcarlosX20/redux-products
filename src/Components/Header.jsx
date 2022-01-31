@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 const Header = () => {
-    return (
+    return ( 
         <header className="bg-primary">
             <nav className="navbar navbar-expand-lg navbar-dark">
                 <div className="container justify-content-between gap-3">

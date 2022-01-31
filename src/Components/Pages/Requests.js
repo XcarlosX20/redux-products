@@ -1,5 +1,5 @@
-import React from "react";
-import RequestsTable from "../Requests/RequestsTable";
+import React from 'react'
+import RequestsTable from '../Requests/RequestsTable'
 
 const Requests = () => {
   return (
@@ -9,7 +9,7 @@ const Requests = () => {
         <RequestsTable />
       </div>
     </>
-  );
-};
+  )
+}
 
-export default Requests;
+export default Requests
