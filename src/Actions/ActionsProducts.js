@@ -1,5 +1,5 @@
 import Swal from 'sweetalert2'
-import axiosClient from '../config/axios'
+import {axiosClient} from '../config/axios'
 import { uploadImage } from '../Services/uploadImage'
 import {
   ADD_PRODUCT,
@@ -24,17 +24,17 @@ export function addProductAction(product) {
   return async (dispatch) => {
     dispatch(addProduct())
     try {
-      //insert to API
       const { image_to_Upload } = product
-      product.img = await uploadImage(image_to_Upload)
-      delete product.image_to_Upload
-      await axiosClient.post('/productos', product)
-      //setState of products
-      dispatch(addProductSuccess(product))
-      //alert
-      Swal.fire({
-        title: 'Producto agregado correctamente!',
-        icon: 'success',
+      await uploadImage(image_to_Upload)
+      .then(res => {
+        product.img = res
+        delete product.image_to_Upload
+        axiosClient.post('/api/products', product)
+        Swal.fire({
+            title: 'Producto agregado correctamente!',
+            icon: 'success',
+          })
+          dispatch(addProductSuccess(product))
       })
     } catch (err) {
       dispatch(addProductErr(true))
@@ -59,7 +59,7 @@ export function getProductsAction() {
   return async (dispatch) => {
     dispatch(getProducts())
     try {
-      const res = await axiosClient.get('/productos')
+      const res = await axiosClient.get('/api/products')
       dispatch(getProductsSuccess(res.data))
     } catch {
       dispatch(getProductsError(true))
@@ -79,11 +79,11 @@ const getProductsError = (boolean) => ({
   payload: boolean,
 })
 //DELETE PRODUCTS
-export function deleteProductAction(id) {
+export function deleteProductAction(_id) {
   return async (dispatch) => {
-    dispatch(getProductDelete(id))
+    dispatch(getProductDelete(_id))
     try {
-      await axiosClient.delete(`/productos/${id}`)
+      await axiosClient.delete(`/api/products/${_id}`)
       dispatch(deleteProductSuccess())
       Swal.fire('Deleted!', 'Your product has been deleted.', 'success')
     } catch (err) {
@@ -91,9 +91,9 @@ export function deleteProductAction(id) {
     }
   }
 }
-const getProductDelete = (id) => ({
+const getProductDelete = (_id) => ({
   type: GET_DELETE_PRODUCT,
-  payload: id,
+  payload: _id,
 })
 const deleteProductError = (boolean) => ({
   type: DELETE_PRODUCT_ERROR,
@@ -114,8 +114,8 @@ const getEditProduct = (product) => ({
 })
 export function editProductAction(product) {
   return async (dispatch) => {
-    dispatch(editProduct(product))
     try {
+      dispatch(editProduct(product))
       const { image_to_Upload, img_html } = product.image
       if (image_to_Upload) {
         product.img = await uploadImage(image_to_Upload)
@@ -123,8 +123,9 @@ export function editProductAction(product) {
         product.img = img_html
       }
       delete product.image
-      await axiosClient.put(`/productos/${product.id}`, product)
-      dispatch(editProductSuccess(product))
+      const productEdited = await axiosClient.put(`/api/products/${product._id}`, product)
+      dispatch(editProductSuccess(productEdited.data))
+      console.log(productEdited);
     } catch (err) {
       console.log(err)
       dispatch(editProductError(true))

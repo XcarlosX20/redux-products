@@ -1,4 +1,4 @@
-import axiosClient from '../config/axios'
+import {axiosClient} from '../config/axios'
 import {
   DOWNLOAD_REQUEST_START,
   DOWNLOAD_REQUEST_SUCCESS,

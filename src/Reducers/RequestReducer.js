@@ -15,7 +15,11 @@ export default function (state = initialState, action) {
                 ...state, loading: false,
                 error: false,
                 requests: action.payload
-            }      
+            }
+        case DOWNLOAD_REQUEST_ERROR:
+            return {
+                ...state, loading: false, error: true,
+            }          
          default:
         return state;
     }

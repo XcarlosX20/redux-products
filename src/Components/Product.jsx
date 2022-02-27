@@ -8,10 +8,10 @@ import {deleteProductAction,getEditProductAction} from "../Actions/ActionsProduc
 const Product = ({ singleProduct }) => {
     const dispatch = useDispatch();
     let history = useHistory();
-    const { productname, price, id, img } = singleProduct;
+    const { productname, price, _id, img } = singleProduct;
     const editProduct = () => {
         dispatch(getEditProductAction(singleProduct));
-        history.push(`/product/edit/${id}`);
+        history.push(`/product/edit/${_id}`);
     }
     const deleteProduct = () => {
         //confirm
@@ -25,7 +25,7 @@ const Product = ({ singleProduct }) => {
             confirmButtonText: 'Yes, delete it!'
           }).then((result) => {
             if (result.isConfirmed) {
-            dispatch(deleteProductAction(id))
+            dispatch(deleteProductAction(_id))
             }
           })
     }
@@ -38,7 +38,7 @@ const Product = ({ singleProduct }) => {
             <td>{formatAmount(price, "$")}</td>
             <td><button className="btn btn-primary" onClick={() => editProduct()}>Edit</button>
                 <button className="btn btn-danger"
-                onClick={() => deleteProduct()}>Delete</button>
+                onClick={deleteProduct}>Delete</button>
             </td>
         </tr>
     );

@@ -1,4 +1,4 @@
-import { SHOW_ALERT, HIDE_ALERT } from '../types/index'
+import { SHOW_ALERT, HIDE_ALERT } from '../types'
 export function showAlertAction(state) {
   return (dispatch) => {
     dispatch(showAlert(state))

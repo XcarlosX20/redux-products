@@ -2,6 +2,7 @@ import { useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from 'react-router-dom';
 import { getProductsAction } from "../Actions/ActionsProducts";
+import Header from './Header';
 import Product from './Product';
 import Search from './Searchbar/Search';
 const Products = () => {
@@ -12,8 +13,9 @@ const Products = () => {
     }, [dispatch])
     //state products list
     const { products, error, searchResults } = useSelector(state => state.products);
-    console.log(searchResults);
     return (
+        <>
+        <Header/>
         <div className="container">
             <Search  products={products}/>
             <h2 className="text-center my-4">Products List</h2>
@@ -35,7 +37,7 @@ const Products = () => {
                 <tbody>
                     {
                         searchResults.map(singleProduct => (
-                            <Product key={singleProduct.id} singleProduct={singleProduct} />
+                            <Product key={singleProduct._id} singleProduct={singleProduct} />
                         ))
                     }
                 </tbody>
@@ -53,15 +55,15 @@ const Products = () => {
                     <tbody>
                         {
                             products.map(singleProduct => (
-                                <Product key={singleProduct.id} singleProduct={singleProduct} />
+                                <Product key={singleProduct._id} singleProduct={singleProduct} />
                             ))
                         }
                     </tbody>
                 </table>)}
                 {searchResults !== null & searchResults < 1 ? <div className="alert "><p className="text-danger text-center">No results</p></div> : null}
             </div>
-        </div>
-
+        </div>  
+        </>
     );
 }
 

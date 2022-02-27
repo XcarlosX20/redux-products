@@ -1,26 +1,30 @@
 import './index.css';
 import './bootstrap.min.css';
-import Header from './Components/Header';
 import Products from './Components/Products';
 import NewProduct from './Components/NewProduct';
 import EditProduct from './Components/EditProduct';
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 //redux
-import { Provider } from "react-redux";
+import { Provider} from "react-redux";
 import store from "./store.js";
-import Requests from './Components/Pages/Requests';
+import Orders from './Components/Pages/Orders';
+import Login from './Components/Pages/Login';
+import PrivateRoute from './Components/RoutePrivateConfig/RoutePrivate';
+import { tokenAuth } from './config/axios';
 function App() {
+  const token = localStorage.getItem('token');
+  if(token){
+    tokenAuth(token);
+  }
   return (
     <Router>
       <Provider store={store}>
-        <div className="mb-4">
-          <Header />
-        </div>
         <Switch>
-          <Route exact path="/" component={Products} />
-          <Route path="/product/new" component={NewProduct} />
-          <Route path="/product/edit/:id" component={EditProduct} />
-          <Route path="/requests" component={Requests} />  
+          <Route path="/login" component={Login} />  
+          <PrivateRoute path="/products" component={Products}/>
+          <PrivateRoute path="/product/new" component={NewProduct} />
+          <PrivateRoute path="/product/edit/:id" component={EditProduct} />
+          <PrivateRoute path="/orders" component={Orders} />  
         </Switch>
       </Provider>
     </Router>

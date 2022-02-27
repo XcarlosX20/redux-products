@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { editProductAction } from '../Actions/ActionsProducts';
 import { showAlertAction } from "../Actions/ActionsAlert"
+import Header from './Header';
 const EditProduct = () => {
     const dispatch = useDispatch();
     const [productname, setProductname] = useState("");
@@ -15,7 +16,7 @@ const EditProduct = () => {
     const { loading, error} = useSelector(state => state.products)
     useEffect(() => {
         if (!editProduct) {
-            history.push(`/`);
+            history.push(`/products`);
             return null
         }
         const getEditProduct = () => {
@@ -36,12 +37,12 @@ const EditProduct = () => {
             dispatch(showAlertAction(msg))
         }else {
             e.preventDefault();
-            const { id } = editProduct;
+            const { _id, company } = editProduct;
             const product = {
-                productname, price : Number(price), id, image
+                productname, price : Number(price), _id, image, company
             }
-            await dispatch(editProductAction(product))
-            history.push(`/`)
+           await dispatch(editProductAction(product))
+            history.push('/products')
         }
     }
     const handleImage = (e) => {
@@ -58,6 +59,8 @@ const EditProduct = () => {
         }
     }
     return (
+            <>
+            <Header/>
             <div className="container">
                 <div className="card">
                     <div className="card-body">
@@ -99,6 +102,7 @@ const EditProduct = () => {
 
                 </div>
             </div>
+            </>
     );
 }
 

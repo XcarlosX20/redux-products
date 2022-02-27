@@ -1,12 +1,11 @@
 html {
   box-sizing: border-box;
-  font-size: 62.5%;
 }
 *, *:before, *:after {
   box-sizing: inherit;
 }
 body {
-  font-size: 1.6rem !important;
+  font-size: 16px !important;
   margin: 0;
   padding: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -15,7 +14,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-
 h1 a.text-light:hover {
   color: white!important;
   text-decoration: none!important;
@@ -94,6 +92,12 @@ button[type="submit"]{
   width: 100px;
   height: 100px;
 }
+.login-img{
+  object-fit: cover;
+}
+.trapecio{
+  clip-path: polygon(0 0, 100% 0%, 100% 86%, 0% 100%);
+}
 @media (min-width:768px){
   .search-bar{
     width: 75%;
@@ -104,5 +108,12 @@ button[type="submit"]{
     .navbar .btn {
       flex: 0 1 auto;
     }
+  .trapecio{
+    clip-path: polygon(0% 0%, 75% 0%, 100% 50%, 75% 100%, 0% 100%);
+  }
+  .login-img{
+    width: 100% !important;
+    height: 100vh !important;
+  }
 }
 
