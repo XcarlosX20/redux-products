@@ -57,7 +57,7 @@ const NewProduct = ({ history }) => {
     <>
       <div className="navbar navbar-expand-lg navbar-light bg-dark">
         <div className="container">
-          <Link className="navbar-brand white" to={"/"}>
+          <Link className="navbar-brand white" to={"/products"}>
             <ArrowBackIcon color="warning" fontSize="large" />
           </Link>
         </div>

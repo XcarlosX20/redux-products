@@ -16,6 +16,7 @@ import {showAlertAction} from '../../Actions/ActionsAlert'
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import Swal from "sweetalert2";
 const Login = () => {
   const { loading, error } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
@@ -52,7 +53,7 @@ const Login = () => {
     }
 
     else{
-      swal.fire({
+      Swal.fire({
         title: 'all fields are required',
         icon: 'info',
       })

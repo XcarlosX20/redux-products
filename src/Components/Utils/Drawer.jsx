@@ -8,13 +8,17 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import {Link} from 'react-router-dom'
-import InboxIcon from "@mui/icons-material/MoveToInbox";
+import { Link } from "react-router-dom";
+import Inventory from "@mui/icons-material/Inventory";
 import MailIcon from "@mui/icons-material/Mail";
 import { useHistory } from "react-router-dom";
+import Menu from "@mui/icons-material/Menu";
+import { logoutAction } from "../../Actions/ActionsAuth";
+import { useDispatch } from "react-redux";
 
 export default function Drawer() {
-  let history = useHistory()
+  let dispatch = useDispatch();
+  let history = useHistory();
   const [state, setState] = React.useState({
     top: false,
     left: false,
@@ -40,35 +44,52 @@ export default function Drawer() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
-          <ListItem button key={text}>
+        <Link to={"/orders"}>
+          <ListItem button>
             <ListItemIcon>
-              {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              <MailIcon />
             </ListItemIcon>
-
-            <ListItemText primary={text} />
+            <ListItemText primary={"Orders"} />
           </ListItem>
-        ))}
-        <ListItemText>
-          <Link to={"/products"}>Products</Link>
-          <Link to={"/orders"}>Orders</Link>
-          <Button onClick={()=> {localStorage.removeItem('token'); history.push('/login')}}>Log out</Button>
-        </ListItemText>
+        </Link>
+        <Link to={"/products"}>
+          <ListItem button>
+            <ListItemIcon>
+              <Inventory />
+            </ListItemIcon>
+            <ListItemText>
+              <Link to={"/products"}>Products</Link>
+            </ListItemText>
+          </ListItem>
+        </Link>
+        <ListItem>
+          <Button
+            onClick={() => {
+              localStorage.removeItem("token");
+              dispatch(logoutAction())
+              history.push("/login");
+            }}
+          >
+            Log out
+          </Button>
+        </ListItem>
       </List>
     </Box>
   );
-  const anchor = 'left'
+  const anchor = "left";
   return (
     <div>
-          <Button onClick={toggleDrawer(anchor, true)}>MENU</Button>
-          <SwipeableDrawer
-            anchor={anchor}
-            open={state[anchor]}
-            onClose={toggleDrawer(anchor, false)}
-            onOpen={toggleDrawer(anchor, true)}
-          >
-            {list(anchor)}
-          </SwipeableDrawer>
+      <Button onClick={toggleDrawer(anchor, true)}>
+        <Menu />
+      </Button>
+      <SwipeableDrawer
+        anchor={anchor}
+        open={state[anchor]}
+        onClose={toggleDrawer(anchor, false)}
+        onOpen={toggleDrawer(anchor, true)}
+      >
+        {list(anchor)}
+      </SwipeableDrawer>
     </div>
   );
 }
