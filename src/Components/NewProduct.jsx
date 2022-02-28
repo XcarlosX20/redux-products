@@ -13,6 +13,7 @@ const NewProduct = ({ history }) => {
   const dispatch = useDispatch();
   //get the store
   const { loading, error } = useSelector((state) => state.products);
+  const companyId = useSelector((state) => state.auth.company._id);
   const alert = useSelector((state) => state.alert.alert);
   const { img_html, image_to_Upload } = image;
 
@@ -35,7 +36,7 @@ const NewProduct = ({ history }) => {
         productname,
         price: Number(price),
         image_to_Upload,
-        company: "61ff0b1d8dfcc4c180721928",
+        company: companyId,
       });
       setProductname("");
       setPrice(0);

@@ -13,7 +13,7 @@ const Products = () => {
     }, [dispatch])
     //state products list
     const { products, error, searchResults } = useSelector(state => state.products);
-    const {companyName} = useSelector(state => state.auth.company) || 'loading';
+    const {companyName} = useSelector(state => state.auth.company) || '';
     return (
         <>
         <Header/>

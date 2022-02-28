@@ -1,16 +1,21 @@
 import { AddOutlined, Notifications } from "@mui/icons-material";
-import { Button, Typography } from "@mui/material";
+import { Button, Grid, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
 import Drawer from "./Utils/Drawer";
 const Header = () => {
   return (
     <header className="bg-primary">
       <nav className="navbar navbar-expand-lg navbar-dark">
-        <div className="container justify-content-between gap-3">
+        <Grid container direction='row' alignItems="center" justifyContent={'space-between'}>
           <Link to={"/products"}>
             <h1 className="text-light">Listado de productos</h1>
           </Link>
-          <div className="d-flex justify-content-end">
+          <Grid
+            container
+            direction="row"
+            justifyContent="flex-end"
+            alignItems="center"
+            >
             <Link to={"/product/new"}>
               <Button>
                 <AddOutlined color="primary" />
@@ -21,8 +26,8 @@ const Header = () => {
               <Notifications />
             </Button>
             <Drawer />
-          </div>
-        </div>
+          </Grid>
+        </Grid>
       </nav>
     </header>
   );
