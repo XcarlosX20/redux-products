@@ -5,6 +5,16 @@ import { Link } from "react-router-dom";
 import { addProductAction } from "../Actions/ActionsProducts";
 import { showAlertAction } from "../Actions/ActionsAlert";
 import { useDispatch, useSelector } from "react-redux";
+import Loading from "./Utils/Loading";
+import { Box } from "@mui/system";
+const dialog = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  width: '100%',
+  transform: 'translate(-50%, -50%)',
+  bgcolor: 'transparent',
+};
 const NewProduct = ({ history }) => {
   //dispact para usar con action
   const [productname, setProductname] = useState("");
@@ -75,9 +85,9 @@ const NewProduct = ({ history }) => {
               </div>
             ) : null}
             {loading ? (
-              <div className="alert alert-info mt-3" role="alert">
-                Loading
-              </div>
+              <Box sx={dialog}>
+                <Loading/>
+              </Box>
             ) : null}
             {error ? (
               <div className="alert alert-danger mt-3" role="alert">

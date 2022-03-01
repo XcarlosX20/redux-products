@@ -13,7 +13,7 @@ const PrivateRoute = ({component: Component, ...props}) => {
     const {auth} = useSelector(state => state.auth)
     return ( 
         <Route {...props} render={props => !auth ? 
-            (<Loading token={token}/>) : (<Component {...props}/>)}/>
+            (<Loading auth={auth}/>) : (<Component {...props}/>)}/>
      );
 }
  

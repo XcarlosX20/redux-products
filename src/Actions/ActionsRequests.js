@@ -8,7 +8,7 @@ export function getRequestAction() {
   return async (dispatch) => {
     dispatch(getRequest())
     try {
-      const res = await axiosClient.get('/requests')
+      const res = await axiosClient.get('/api/requests')
       dispatch(getRequestSuccess(res.data))
     } catch {
       dispatch(getRequestError(true))

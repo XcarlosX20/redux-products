@@ -33,6 +33,8 @@ export function addProductAction(product) {
         Swal.fire({
             title: 'Producto agregado correctamente!',
             icon: 'success',
+            timer: 2000,
+            timerProgressBar: true,
           })
           dispatch(addProductSuccess(product))
       })
