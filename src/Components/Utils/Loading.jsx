@@ -3,7 +3,6 @@ import styled from '@emotion/styled'
 // import { useEffect } from 'react';
 //  import { useDispatch } from 'react-redux';
 // import { useSelector } from 'react-redux';
-import { Redirect } from 'react-router-dom';
 // import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 const Loader = styled.div`
 border-radius: 50%;
@@ -49,9 +48,7 @@ height:  ${props => (props.height || '11rem')};
   }
 }
 `
-const Loading = ({
-  auth, width, height}) => {
-    console.log(auth)
+const Loading = ({width, height}) => {
     return ( 
         <>
           <Loader width={width} height={height}/>
