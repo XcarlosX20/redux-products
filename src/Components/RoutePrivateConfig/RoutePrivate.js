@@ -4,22 +4,21 @@ import {Route, Redirect} from "react-router";
 import Loading from '../Utils/Loading'
 import { getCompanyAction } from '../../Actions/ActionsAuth';
 const PrivateRoute = ({component: Component, ...props}) => {
-    const [mounted, setMounted] = useState(false)
     let dispatch = useDispatch();
+    const [mounted, setMounted] = useState(false)
     const token = localStorage.getItem('token');
-    useEffect(async() => {  
-       const authCompany = () => dispatch(getCompanyAction(token))
-        await authCompany()
-        setMounted(true)
-    }, [dispatch, !mounted])
+    useEffect(() => {  
+       const authCompany = async() => {
+           await dispatch(getCompanyAction(token))
+           setMounted(true)
+        }
+        authCompany();     
+    }, [dispatch])
     const {auth} = useSelector(state => state.auth)
+    if (!mounted) return <Loading />
     return ( 
-        <>
-        {mounted ? 
         <Route {...props} render={props => !auth ? 
             (<Redirect to="/login"/>) : (<Component {...props}/>)}/>
-        : null}
-        </>
      );
 }
  
