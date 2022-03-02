@@ -20,7 +20,7 @@ function App() {
     <Router>
       <Provider store={store}>
         <Switch>
-          <Route path="/login" component={Login} />  
+          <Route exact path="/login" component={Login} />  
           <PrivateRoute path="/products" component={Products}/>
           <PrivateRoute path="/product/new" component={NewProduct} />
           <PrivateRoute path="/product/edit/:id" component={EditProduct} />

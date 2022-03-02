@@ -1,3 +1,4 @@
+import { tokenAuth } from '../config/axios'
 import {AUTH_COMPANY_START, AUTH_COMPANY_SUCCESS, AUTH_COMPANY_ERROR, LOGOUT, GET_COMPANY_START, GET_COMPANY_SUCCESS, GET_COMPANY_ERROR} from '../types'
 const initialState = {
     company: null,
@@ -30,6 +31,8 @@ export default function (state = initialState, action) {
                 ...state, loading:false, company: action.payload, auth: true
             }
         case LOGOUT:
+            localStorage.removeItem('token');
+            tokenAuth()
             return {
                 ...state, auth: false, token: null, company: null
             }

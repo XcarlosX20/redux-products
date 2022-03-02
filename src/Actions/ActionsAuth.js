@@ -8,13 +8,13 @@ export function authCompanyAction (company) {
         dispatch(authCompanyStart())
         try {
             const gettoken = await axiosClient.post('/api/auth/company', company)
-            if (gettoken.status === 200) {
+            if (gettoken.data.token) {
               dispatch(authCompanySuccess(gettoken.data.token))
             }
         } catch (err) {
           console.log(err)
           Swal.fire({
-            title: err.response.data.msg,
+            title: err.response.data.msg || 'There was an error',
             icon: 'info',
           })
           dispatch(authCompanyError(true))

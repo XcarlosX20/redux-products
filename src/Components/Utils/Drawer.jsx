@@ -65,7 +65,6 @@ export default function Drawer() {
         <ListItem>
           <Button
             onClick={() => {
-              localStorage.removeItem("token");
               dispatch(logoutAction())
               history.push("/login");
             }}
