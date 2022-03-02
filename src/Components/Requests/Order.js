@@ -6,7 +6,11 @@ import ListItemText from '@mui/material/ListItemText'
 import Typography from '@mui/material/Typography'
 import Collapse from '@mui/material/Collapse'
 import Swal from 'sweetalert2'
+import { useDispatch } from 'react-redux'
+import { editRequestAction } from '../../Actions/ActionsRequests'
 const Order = ({ order, usdToBs }) => {
+  let dispatch = useDispatch();
+  const editOrderFn = (order) => dispatch(editRequestAction(order))
   const [open, setOpen] = useState(false)
   const handleClick = () => {
     setOpen(!open)
@@ -45,20 +49,14 @@ const Order = ({ order, usdToBs }) => {
               <>
                 <button
                   onClick={() => {
-                    Swal.fire({
-                      position: 'top-end',
-                      icon: 'success',
-                      title: 'Genial',
-                      showConfirmButton: false,
-                      timer: 1500
-                    })
+                    editOrderFn({...order, state: true})
                   }}
                   className='btn bg-light'
                 >
                   Completar
                 </button>
                 <button
-                  onClick={(e) => {
+                  onClick={() => {
                     Swal.fire({
                       icon: 'warning',
                       title: 'Que ha ocurrido con este pedido?',
@@ -68,15 +66,15 @@ const Order = ({ order, usdToBs }) => {
                       inputOptions: {
                         problem1: 'No he recibido el dinero',
                         problem2:
-                        'Uno o mas productos dentro de la orden no se encuentra disponibles',
-                        problem3: 'Tengo otro problema'
+                        'Uno o mas productos dentro de la orden no se encuentran disponibles',
+                        problem3: 'Devolucion del dinero',
+                        problem4: 'Tengo otro problema'
                       },
                       text: 'Para eliminar una order, primero debes elegir la razon por la cual se va eliminar',
                       confirmButtonText: 'Siguiente',
                       cancelButtonText: 'Cancelar'
                     }).then((result) => {
-                      console.log(result.value === 'problem3')
-                      if (result.value === 'problem3') {
+                      if (result.value === 'problem4') {
                         Swal.fire({
                           input: 'textarea',
                           inputLabel: 'Message',
@@ -98,11 +96,13 @@ const Order = ({ order, usdToBs }) => {
                           title: 'Ahora envianos un capture como comprobante',
                           icon: 'warning',
                           input: 'file',
+                          text: 'Debe coincidir con la fecha y hora de este pedido',
                           showCancelButton: true,
                           confirmButtonText: 'Enviar',
                           cancelButtonText: 'Cancelar'
                         }).then((result) => {
                           if (result.isConfirmed) {
+                            //editOrderFn({...order, pendingDelete: true})
                             Swal.fire({
                               title: 'En breve será confirmado!',
                               icon: 'info'
