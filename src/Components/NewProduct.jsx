@@ -1,14 +1,19 @@
 import { useState } from "react";
-import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Link } from "react-router-dom";
 //actions of redux
 import { addProductAction } from "../Actions/ActionsProducts";
 import { showAlertAction } from "../Actions/ActionsAlert";
 import { useDispatch, useSelector } from "react-redux";
-import Loading from "./Utils/Loading";
+//Styles
+import Loading from "./Utils/Loading"; 
 import { Box } from "@mui/system";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import { Button, Grid } from "@mui/material";
+import Swal from "sweetalert2";
+import { axiosClient } from "../config/axios";
+import { getCompanyAction } from "../Actions/ActionsAuth";
 const dialog = {
-  position: 'absolute',
+  position: 'fixed',
   top: '50%',
   left: '50%',
   width: '100%',
@@ -16,18 +21,19 @@ const dialog = {
   bgcolor: 'transparent',
 };
 const NewProduct = ({ history }) => {
-  //dispact para usar con action
+  const dispatch = useDispatch();
+  //useState
   const [productname, setProductname] = useState("");
   const [price, setPrice] = useState(0);
   const [image, setImage] = useState({ img_html: "", image_to_Upload: "" });
-  const dispatch = useDispatch();
+  const [categoriesSelect, setCategoriesSelect] = useState('');
   //get the store
   const { loading, error } = useSelector((state) => state.products);
-  const companyId = useSelector((state) => state.auth.company._id);
+  const { _id, categories } = useSelector((state) => state.auth.company);
   const alert = useSelector((state) => state.alert.alert);
   const { img_html, image_to_Upload } = image;
-
   const addProducto = (product) => dispatch(addProductAction(product));
+  const getCompany = () => dispatch(getCompanyAction());
   const onSubmit = async (e) => {
     e.preventDefault();
     if (
@@ -46,7 +52,8 @@ const NewProduct = ({ history }) => {
         productname,
         price: Number(price),
         image_to_Upload,
-        company: companyId,
+        company: _id,
+        categories: categoriesSelect
       });
       setProductname("");
       setPrice(0);
@@ -138,12 +145,60 @@ const NewProduct = ({ history }) => {
                   )}
                 </div>
               </div>
-              <button
+              <div className="form-group my-3">
+                <label>Categoria:</label>
+                <select onChange={(e) => {
+                  if(e.target.value === 'new'){
+                    setCategoriesSelect('');
+                    Swal.fire({
+                      icon: 'info',
+                      showCancelButton: true,
+                      input: 'text',
+                      text: 'Ingrese el nombre de la nueva categoria',
+                      confirmButtonText: 'listo',
+                      cancelButtonText: 'Cancelar',
+                    }).then((result)=> { 
+                      let newCategories = [];
+                      if(result.isConfirmed && result.value !== ''){
+                        const value = result.value.toLowerCase().trim();
+                        setCategoriesSelect(value)
+                        newCategories.push(...categories, value)
+                        axiosClient.put('/api/companies/', {categories: newCategories})
+                          .then(() => {
+                            getCompany(); 
+                            setCategoriesSelect('');
+                            Swal.fire({
+                              position: 'top-end',
+                              icon: 'success',
+                              title: 'Categoria creada',
+                              text: 'Fue agregada a tu lista!',
+                              showConfirmButton: false,
+                              timer: 2000
+                            })
+                          })
+                      }
+                    })
+                  }else{
+                    setCategoriesSelect(e.target.value);
+                  }
+                }} className="form-control">
+                <option value="">-- Seleccione --</option>
+                <option value="new">-- Crear nueva categoria-- </option>
+                  {categories.map((category) => (
+                    <option value={category}>{category.toUpperCase()}</option>
+                  ))}
+                </select>
+              </div>
+              <Grid container justifyContent={'center'}>
+              <Button
                 type="submit"
-                className="btn btn-primary font-weight-bold text-uppercase d-block w-100"
+                variant="contained"
+                color="info"
+                sx={{padding: '10px 40px'}}
               >
                 add
-              </button>
+              </Button>
+              </Grid>
             </form>
           </div>
         </div>

@@ -6,6 +6,9 @@ import { showAlertAction } from "../Actions/ActionsAlert";
 import Header from "./Header";
 import Loading from "./Utils/Loading";
 import { Box } from "@mui/material";
+import Swal from "sweetalert2";
+import { axiosClient } from "../config/axios";
+import { getCompanyAction } from "../Actions/ActionsAuth";
 const dialog = {
     position: 'absolute',
     top: '50%',
@@ -15,15 +18,21 @@ const dialog = {
     bgcolor: 'transparent',
   };
 const EditProduct = () => {
-  const dispatch = useDispatch();
+  const dispatch = useDispatch();  
+  let history = useHistory();
+  const getCompany = () => dispatch(getCompanyAction());
+  const editProductFn = (product) => dispatch(editProductAction(product));
+  //useState
   const [productname, setProductname] = useState("");
   const [price, setPrice] = useState(0);
   const [image, setImage] = useState({ img_html: "", image_to_Upload: null });
-  const { img_html, image_to_Upload } = image;
-  let history = useHistory();
+  const [categoriesSelect, setCategoriesSelect] = useState('');
+
   const editProduct = useSelector((state) => state.products.productEdit);
+  const { categories } = useSelector((state) => state.auth.company);
   const alert = useSelector((state) => state.alert.alert);
   const { loading, error } = useSelector((state) => state.products);
+  const { img_html, image_to_Upload } = image;
   useEffect(() => {
     if (!editProduct) {
       history.push(`/products`);
@@ -33,10 +42,10 @@ const EditProduct = () => {
       setProductname(editProduct.productname);
       setPrice(editProduct.price);
       setImage({ ...image, img_html: editProduct.img });
+      setCategoriesSelect(editProduct.category)
     };
     getEditProduct();
   }, [editProduct, history]);
-
   const onSubmit = async (e) => {
     e.preventDefault();
     if (productname === "" || !price || img_html === "") {
@@ -54,8 +63,9 @@ const EditProduct = () => {
         _id,
         image,
         company,
+        category: categoriesSelect
       };
-      await dispatch(editProductAction(product));
+      editProductFn(product)
       history.push("/products");
     }
   };
@@ -75,6 +85,7 @@ const EditProduct = () => {
       const condition =
         price == editProduct.price &&
         productname === editProduct.productname &&
+        categoriesSelect === editProduct.category
         image_to_Upload === null;
       return condition;
     }
@@ -144,6 +155,50 @@ const EditProduct = () => {
                     <p>Browse or drop your image</p>
                   )}
                 </div>
+              </div>
+              <div className="form-group my-3">
+                <label>Categoria:</label>
+                <select onChange={(e) => {
+                  if(e.target.value === 'new'){
+                    setCategoriesSelect('');
+                    Swal.fire({
+                      icon: 'info',
+                      showCancelButton: true,
+                      input: 'text',
+                      text: 'Ingrese el nombre de la nueva categoria',
+                      confirmButtonText: 'listo',
+                      cancelButtonText: 'Cancelar',
+                    }).then((result)=> { 
+                      let newCategories = [];
+                      if(result.isConfirmed && result.value !== ''){
+                        const value = result.value.toLowerCase().trim();
+                        setCategoriesSelect(value)
+                        newCategories.push(...categories, value)
+                        axiosClient.put('/api/companies/', {categories: newCategories})
+                          .then(() => {
+                            getCompany(); 
+                            setCategoriesSelect('');
+                            Swal.fire({
+                              position: 'top-end',
+                              icon: 'success',
+                              title: 'Categoria creada',
+                              text: 'Fue agregada a tu lista!',
+                              showConfirmButton: false,
+                              timer: 2000
+                            })
+                          })
+                      }
+                    })
+                  }else{
+                    setCategoriesSelect(e.target.value);
+                  }
+                }} className="form-control">
+                <option selected value={editProduct.category ? editProduct.category : '' }>{editProduct.category ? editProduct.category.toUpperCase() : '-- Seleccionar --' }</option>
+                <option value="new">-- Crear nueva categoria-- </option>
+                  {categories.map((category) => (
+                    category !== editProduct.category ? <option value={category}>{category.toUpperCase()}</option> : null
+                  ))}
+                </select>
               </div>
               <button
                 disabled={disabledEdit()}

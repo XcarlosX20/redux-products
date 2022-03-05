@@ -13,13 +13,12 @@ const Products = () => {
     }, [dispatch])
     //state products list
     const { products, error, searchResults } = useSelector(state => state.products);
-    const {companyName} = useSelector(state => state.auth.company) || '';
     return (
         <>
         <Header/>
         <div className="container">
             <Search  products={products}/>
-            <h2 className="text-center my-4">{companyName}</h2>
+            <h3 className="text-center my-4">Listado de productos</h3>
             {error ?
                 (<div className="alert alert-danger mb-2" role="alert">
                     There was an error loading products
@@ -50,7 +49,7 @@ const Products = () => {
                             <th scope="col">Image:</th>
                             <th scope="col">Name:</th>
                             <th scope="col">Price:</th>
-                            <th scope="col">Actions :</th>
+                            <th scope="col">Actions:</th>
                         </tr>
                     </thead>
                     <tbody>

@@ -78,7 +78,7 @@ export default function Drawer() {
   const anchor = "left";
   return (
     <div>
-      <Button onClick={toggleDrawer(anchor, true)}>
+      <Button color={"light"} onClick={toggleDrawer(anchor, true)}>
         <Menu />
       </Button>
       <SwipeableDrawer

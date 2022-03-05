@@ -5,6 +5,8 @@ import {formatAmount} from ".././helpers";
 //Redux
 import { useDispatch } from 'react-redux';
 import {deleteProductAction,getEditProductAction} from "../Actions/ActionsProducts";
+import { Delete, Edit } from '@mui/icons-material';
+import { Button } from '@mui/material';
 const Product = ({ singleProduct }) => {
     const dispatch = useDispatch();
     let history = useHistory();
@@ -36,9 +38,9 @@ const Product = ({ singleProduct }) => {
             </td>
             <td>{productname}</td>
             <td>{formatAmount(price, "$")}</td>
-            <td><button className="btn btn-primary" onClick={() => editProduct()}>Edit</button>
-                <button className="btn btn-danger"
-                onClick={deleteProduct}>Delete</button>
+            <td><Button onClick={() => editProduct()}><Edit color='dark'/></Button>
+                <Button 
+                onClick={deleteProduct}><Delete color={'warning.main'}/></Button>
             </td>
         </tr>
     );

@@ -14,6 +14,9 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+a{
+  text-decoration: none !important;
+}
 h1 a.text-light:hover {
   color: white!important;
   text-decoration: none!important;
@@ -63,17 +66,17 @@ input[type="file"]{
   height: 100px;
 }
 button[type="submit"]:disabled{
-  background-color:#FFF;
+  background-color:#FFDDD2;
   color: #000;
   border: #ccc 2px solid;
 }
-button[type="submit"]{
+/* button[type="submit"]{
   transition: .3s all ease;
   cursor: pointer;
   background-color:#000;
   color: #FFF;
   border: transparent 2px solid;
-}
+} */
 .cursor-danger{
   cursor:none
 }

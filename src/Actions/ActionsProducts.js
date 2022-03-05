@@ -127,7 +127,6 @@ export function editProductAction(product) {
       delete product.image
       const productEdited = await axiosClient.put(`/api/products/${product._id}`, product)
       dispatch(editProductSuccess(productEdited.data))
-      console.log(productEdited);
     } catch (err) {
       console.log(err)
       dispatch(editProductError(true))
