@@ -5,18 +5,10 @@ import { editProductAction } from "../Actions/ActionsProducts";
 import { showAlertAction } from "../Actions/ActionsAlert";
 import Header from "./Header";
 import Loading from "./Utils/Loading";
-import { Box } from "@mui/material";
 import Swal from "sweetalert2";
 import { axiosClient } from "../config/axios";
 import { getCompanyAction } from "../Actions/ActionsAuth";
-const dialog = {
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    width: '100%',
-    transform: 'translate(-50%, -50%)',
-    bgcolor: 'transparent',
-  };
+import Compressor from 'compressorjs';
 const EditProduct = () => {
   const dispatch = useDispatch();  
   let history = useHistory();
@@ -34,7 +26,7 @@ const EditProduct = () => {
   const { loading, error } = useSelector((state) => state.products);
   const { img_html, image_to_Upload } = image;
   useEffect(() => {
-    if (!editProduct) {
+    if (editProduct === null) {
       history.push(`/products`);
       return null;
     }
@@ -65,16 +57,27 @@ const EditProduct = () => {
         company,
         category: categoriesSelect
       };
-      editProductFn(product)
+      await editProductFn(product)
       history.push("/products");
     }
   };
   const handleImage = (e) => {
     if (e.target.files[0]) {
-      setImage({
-        ...image,
-        img_html: URL.createObjectURL(e.target.files[0]),
-        image_to_Upload: e.target.files[0],
+      new Compressor(e.target.files[0], {
+        quality: 0.6,
+    
+        // The compression process is asynchronous,
+        // which means you have to access the `result` in the `success` hook function.
+        success(result) {
+          setImage({
+            ...image,
+            img_html: URL.createObjectURL(e.target.files[0]),
+            image_to_Upload: result,
+          });
+        },
+        error(err) {
+          console.log(err.message);
+        },
       });
     } else {
       setImage({ img_html: "", image_to_Upload: "" });
@@ -85,11 +88,14 @@ const EditProduct = () => {
       const condition =
         price == editProduct.price &&
         productname === editProduct.productname &&
-        categoriesSelect === editProduct.category
-        image_to_Upload === null;
+        categoriesSelect === editProduct.category &&
+        !image_to_Upload;
       return condition;
     }
   };
+  if(editProduct === null){
+    return <Loading/>
+  } 
   return (
     <>
       <Header />
@@ -102,14 +108,11 @@ const EditProduct = () => {
                 {alert.txt}
               </div>
             ) : null}
-            {loading ? (
-              <Box sx={dialog}>
+            {loading ? (  
                 <Loading />
-              </Box>
             ) : null}
             {error ? (
               <div className="alert alert-danger mt-3" role="alert">
-                There was a mistake
               </div>
             ) : null}
             <form onSubmit={onSubmit}>

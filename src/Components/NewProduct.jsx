@@ -5,21 +5,13 @@ import { addProductAction } from "../Actions/ActionsProducts";
 import { showAlertAction } from "../Actions/ActionsAlert";
 import { useDispatch, useSelector } from "react-redux";
 //Styles
-import Loading from "./Utils/Loading"; 
-import { Box } from "@mui/system";
+import Loading from "./Utils/Loading";
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Button, Grid } from "@mui/material";
 import Swal from "sweetalert2";
 import { axiosClient } from "../config/axios";
 import { getCompanyAction } from "../Actions/ActionsAuth";
-const dialog = {
-  position: 'fixed',
-  top: '50%',
-  left: '50%',
-  width: '100%',
-  transform: 'translate(-50%, -50%)',
-  bgcolor: 'transparent',
-};
+import Compressor from 'compressorjs';
 const NewProduct = ({ history }) => {
   const dispatch = useDispatch();
   //useState
@@ -27,7 +19,7 @@ const NewProduct = ({ history }) => {
   const [price, setPrice] = useState(0);
   const [image, setImage] = useState({ img_html: "", image_to_Upload: "" });
   const [categoriesSelect, setCategoriesSelect] = useState('');
-  //get the store
+  //get store
   const { loading, error } = useSelector((state) => state.products);
   const { _id, categories } = useSelector((state) => state.auth.company);
   const alert = useSelector((state) => state.alert.alert);
@@ -53,7 +45,7 @@ const NewProduct = ({ history }) => {
         price: Number(price),
         image_to_Upload,
         company: _id,
-        categories: categoriesSelect
+        category: categoriesSelect
       });
       setProductname("");
       setPrice(0);
@@ -62,10 +54,21 @@ const NewProduct = ({ history }) => {
   };
   const handleImage = (e) => {
     if (e.target.files[0]) {
-      setImage({
-        ...image,
-        img_html: URL.createObjectURL(e.target.files[0]),
-        image_to_Upload: e.target.files[0],
+      new Compressor(e.target.files[0], {
+        quality: 0.6,
+    
+        // The compression process is asynchronous,
+        // which means you have to access the `result` in the `success` hook function.
+        success(result) {
+          setImage({
+            ...image,
+            img_html: URL.createObjectURL(e.target.files[0]),
+            image_to_Upload: result,
+          });
+        },
+        error(err) {
+          console.log(err.message);
+        },
       });
     } else {
       setImage({ img_html: "", image_to_Upload: "" });
@@ -92,9 +95,7 @@ const NewProduct = ({ history }) => {
               </div>
             ) : null}
             {loading ? (
-              <Box sx={dialog}>
                 <Loading/>
-              </Box>
             ) : null}
             {error ? (
               <div className="alert alert-danger mt-3" role="alert">

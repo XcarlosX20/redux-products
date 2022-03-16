@@ -1,9 +1,11 @@
 import styled from '@emotion/styled'
+import { Box } from '@mui/system';
 // import { useState } from 'react';
 // import { useEffect } from 'react';
 //  import { useDispatch } from 'react-redux';
 // import { useSelector } from 'react-redux';
 // import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+const Loading = ({width, height}) => {
 const Loader = styled.div`
 border-radius: 50%;
 width: ${props => (props.width || '11rem')};
@@ -47,11 +49,20 @@ height:  ${props => (props.height || '11rem')};
     transform: rotate(360deg);
   }
 }
-`
-const Loading = ({width, height}) => {
+`;
+const dialog = {
+  position: 'fixed',
+  top: '50%',
+  left: '50%',
+  width: '100%',
+  transform: 'translate(-50%, -50%)',
+  bgcolor: 'transparent',
+};
     return ( 
         <>
+          <Box sx={dialog}>
           <Loader width={width} height={height}/>
+          </Box>
         </>
      );
 }
