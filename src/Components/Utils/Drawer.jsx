@@ -57,8 +57,25 @@ export default function Drawer() {
             <ListItemIcon>
               <Inventory />
             </ListItemIcon>
-            <ListItemText>
-              <Link to={"/products"}>Products</Link>
+            <ListItemText primary={'Products'}>
+            </ListItemText>
+          </ListItem>
+        </Link>
+        <Link to={"/summary"}>
+          <ListItem button>
+            <ListItemIcon>
+              <Inventory />
+            </ListItemIcon>
+            <ListItemText primary={'Summary of sales'}>
+            </ListItemText>
+          </ListItem>
+        </Link>
+        <Link to={"/customization"}>
+          <ListItem button>
+            <ListItemIcon>
+              <Inventory />
+            </ListItemIcon>
+            <ListItemText primary={'Customatization'}>
             </ListItemText>
           </ListItem>
         </Link>
@@ -81,7 +98,7 @@ export default function Drawer() {
       <Button color={"light"} onClick={toggleDrawer(anchor, true)}>
         <Menu />
       </Button>
-      <SwipeableDrawer
+      <SwipeableDrawer sx={{ zIndex: (theme) => theme.zIndex.drawer + 2 }}
         anchor={anchor}
         open={state[anchor]}
         onClose={toggleDrawer(anchor, false)}
