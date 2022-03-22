@@ -1,4 +1,5 @@
 export const formatAmount = (amount, currency) => {
    let toNumber = Number(amount)
-   if(toNumber)  return `${currency} ` + toNumber.toFixed(2);
-} 
+   if(amount <= 0) return 'Free'
+   return `${currency} ${toNumber.toFixed(2)}`;
+}
