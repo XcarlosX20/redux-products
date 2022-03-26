@@ -13,6 +13,9 @@ import Orders from './Components/Pages/Orders';
 import Login from './Components/Pages/Login';
 import PrivateRoute from './Components/RoutePrivateConfig/RoutePrivate';
 import { tokenAuth } from './config/axios';
+import Categories from './Components/Pages/custom/Categories';
+import Mycompany from './Components/Pages/custom/Mycompany';
+import { Redirect } from 'react-router-dom';
 function App() {
   const token = localStorage.getItem('token');
   if(token){
@@ -22,13 +25,15 @@ function App() {
     <Router>
       <Provider store={store}>
         <Switch>
-          <Route exact path="/login" component={Login} />  
-          <PrivateRoute path="/products" component={Products}/>
+          <Route path="/login" component={Login} />  
+          <PrivateRoute exact path="/products" component={Products}/>
           <PrivateRoute path="/product/new" component={NewProduct} />
           <PrivateRoute path="/product/edit/:id" component={EditProduct} />
           <PrivateRoute path="/orders" component={Orders} /> 
-          <PrivateRoute path="/customization" component={Customization} />  
-          <PrivateRoute path="/summary" component={Summary} />  
+          <PrivateRoute exact path="/customization" component={Customization} />  
+          <PrivateRoute path="/customization/categories" component={Categories} />  
+          <PrivateRoute path="/customization/my-company" component={Mycompany} />
+          <PrivateRoute path="/customization/sales-summary" component={Summary} />
           <Route render={() => {setTimeout(()=>{window.location = '/products'},3000); return(<><h2>Page not found... redirecting to home</h2></>)}} /> 
         </Switch>
       </Provider>

@@ -8,13 +8,13 @@ import {
   ListItemIcon,
   ListItemText,
 } from "@mui/material";
-import { Link } from "react-router-dom";
 import Inventory from "@mui/icons-material/Inventory";
 import MailIcon from "@mui/icons-material/Mail";
 import { useHistory } from "react-router-dom";
 import Menu from "@mui/icons-material/Menu";
 import { logoutAction } from "../../Actions/ActionsAuth";
 import { useDispatch } from "react-redux";
+import { NavLink } from "react-router-dom";
 
 export default function Drawer() {
   let dispatch = useDispatch();
@@ -44,15 +44,15 @@ export default function Drawer() {
       onKeyDown={toggleDrawer(anchor, false)}
     >
       <List>
-        <Link to={"/orders"}>
+        <NavLink to={"/orders"}>
           <ListItem button>
             <ListItemIcon>
               <MailIcon />
             </ListItemIcon>
             <ListItemText primary={"Orders"} />
           </ListItem>
-        </Link>
-        <Link to={"/products"}>
+        </NavLink>
+        <NavLink to={"/products"}>
           <ListItem button>
             <ListItemIcon>
               <Inventory />
@@ -60,8 +60,8 @@ export default function Drawer() {
             <ListItemText primary={'Products'}>
             </ListItemText>
           </ListItem>
-        </Link>
-        <Link to={"/summary"}>
+        </NavLink>
+        <NavLink to={"/customization/sales-summary"}>
           <ListItem button>
             <ListItemIcon>
               <Inventory />
@@ -69,8 +69,8 @@ export default function Drawer() {
             <ListItemText primary={'Summary of sales'}>
             </ListItemText>
           </ListItem>
-        </Link>
-        <Link to={"/customization"}>
+        </NavLink>
+        <NavLink exact to={"/customization"}>
           <ListItem button>
             <ListItemIcon>
               <Inventory />
@@ -78,7 +78,7 @@ export default function Drawer() {
             <ListItemText primary={'Customatization'}>
             </ListItemText>
           </ListItem>
-        </Link>
+        </NavLink>
         <ListItem>
           <Button
             onClick={() => {
