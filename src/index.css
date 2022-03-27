@@ -28,6 +28,13 @@ h1 a.text-light:hover {
 .search-bar{
   width: 100%;
 }
+.fixed{
+  position: fixed;
+  top: 15px;
+  left: 0;
+  right: 0;
+  z-index: 10;
+}
 .search-bar li{
   cursor: pointer;
 }
@@ -103,7 +110,7 @@ button[type="submit"]:disabled{
 }
 @media (min-width:768px){
   .search-bar{
-    width: 75%;
+    width: 75% !important;
   }
   input[type=text], input[type=number] {
    font-size: 1.6rem;
