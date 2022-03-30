@@ -6,7 +6,7 @@ import {formatAmount} from "../../helpers";
 import { useDispatch } from 'react-redux';
 import {deleteProductAction,getEditProductAction} from "../../Actions/ActionsProducts";
 import { Delete, Edit } from '@mui/icons-material';
-import { Button } from '@mui/material';
+import {IconButton, Stack } from '@mui/material';
 const Product = ({ singleProduct }) => {
     const dispatch = useDispatch();
     let history = useHistory();
@@ -31,16 +31,24 @@ const Product = ({ singleProduct }) => {
             }
           })
     }
+    const buttons = () => {
+        return(
+        <Stack direction="row">
+            <IconButton onClick={() => editProduct()}><Edit color='dark'/></IconButton>
+            <IconButton color={'error'} onClick={deleteProduct}><Delete/></IconButton>
+        </Stack>)
+}
     return (
         <tr>
             <td>
                 {img ? (<img className="img-view" loading="lazy" src={img} alt={productname} /> ): (<img width="60px" height="60px" className="img-fluid" src="https://res.cloudinary.com/do5yybhwe/image/upload/v1634941979/nophoto-removebg-preview-min_ve6bfv.png" alt={productname}/>) }
             </td>
             <td>{productname}</td>
-            <td>{formatAmount(price, "$")}</td>
-            <td><Button onClick={() => editProduct()}><Edit color='dark'/></Button>
-                <Button 
-                onClick={deleteProduct}><Delete color={'warning.main'}/></Button>
+            <td>
+                <Stack direction='column' spacing={3}>
+                    <span>{formatAmount(price, "$")}</span>
+                    {buttons()}
+                </Stack>
             </td>
         </tr>
     );

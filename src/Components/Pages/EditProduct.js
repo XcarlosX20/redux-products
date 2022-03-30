@@ -91,12 +91,11 @@ const EditProduct = () => {
   const disabledEdit = () => {
     if (editProduct) {
       const condition =
-        (price == editProduct.price &&
+        price == editProduct.price &&
           productname === editProduct.productname &&
           categoriesSelect === editProduct.category &&
-          !image_to_Upload) ||
-        categoriesSelect === "";
-      return condition || loading ? true : false;
+          !image_to_Upload
+      return condition || loading ? true : loading;
     }
   };
   if (editProduct === null) {

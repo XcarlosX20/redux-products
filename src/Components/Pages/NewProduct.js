@@ -15,10 +15,10 @@ import { Button, Grid, Input, TextField } from "@mui/material";
 import Swal from "sweetalert2";
 import Compressor from "compressorjs";
 import { PhotoCamera } from "@mui/icons-material";
-import useNumberFormatCustom from "../../Hooks/NumberFormatCustom";
+//import useNumberFormatCustom from "../../Hooks/NumberFormatCustom";
 
 const NewProduct = ({ history }) => {
-  const {numberformat , changeValue, NumberFormatCustom} = useNumberFormatCustom('')
+  //const {numberformat , changeValue, NumberFormatCustom} = useNumberFormatCustom('')
   const dispatch = useDispatch();
   //useState
   const [image, setImage] = useState({ img_html: "", image_to_Upload: "" });
@@ -37,8 +37,6 @@ const NewProduct = ({ history }) => {
     formState: { errors },
   } = useForm();
   const onSubmit = async (data, e) => {
-    console.log(numberformat)
-    data.price = Number(numberformat.substring(-1));
     e.preventDefault();
     const { productname, price } = data;
     if (image_to_Upload === "") {
@@ -113,12 +111,8 @@ const NewProduct = ({ history }) => {
                   label="Price"
                   variant="filled"
                   {...register("price", { required: true })}
-                  placeholder={numberformat}
+                  placeholder={'0'}
                   helperText="required"
-                  onChange={(e) => changeValue(e.target.value)}
-                  InputProps={{
-                    inputComponent: NumberFormatCustom,
-                  }}
                   error={errors.price}
                 />
               </div>

@@ -1,3 +1,4 @@
+import { Container } from '@mui/material';
 import { useEffect } from 'react'
 import { useDispatch, useSelector } from "react-redux";
 import { getProductsAction } from "../../Actions/ActionsProducts";
@@ -5,7 +6,7 @@ import Header from '../Layout/Header';
 import Product from '../Products/Product';
 import Search from '../Searchbar/Search';
 const Products = () => {
-    const dispatch = useDispatch();
+    const dispatch = useDispatch()
     useEffect(() => {
         const loadProducts = () => dispatch(getProductsAction());
         loadProducts();
@@ -15,9 +16,10 @@ const Products = () => {
     return (
         <>
         <Header/>
-        <div className="container">
-            <Search  products={products}/>
+        <Container
+        maxWidth={'md'} >
             <h3 className="text-center my-4">Listado de productos</h3>
+            <Search products={products}/>
             {error ?
                 (<div className="alert alert-danger mb-2" role="alert">
                     There was an error loading products
@@ -30,7 +32,6 @@ const Products = () => {
                         <th scope="col">Image:</th>
                         <th scope="col">Name:</th>
                         <th scope="col">Price:</th>
-                        <th scope="col">Actions :</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -48,7 +49,6 @@ const Products = () => {
                             <th scope="col">Image:</th>
                             <th scope="col">Name:</th>
                             <th scope="col">Price:</th>
-                            <th scope="col">Actions:</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -61,7 +61,7 @@ const Products = () => {
                 </table>)}
                 {searchResults !== null & searchResults < 1 ? <div className="alert "><p className="text-danger text-center">No results</p></div> : null}
             </div>
-        </div>  
+        </Container> 
         </>
     );
 }
