@@ -55,7 +55,6 @@ const EditProduct = () => {
   }, [img_html === '' && editProduct])
   
   const onSubmit = async (data, e) => {
-    console.log(data)
     e.preventDefault();
     if (productname === "" || !price || img_html === "") {
       const msg = {

@@ -17,8 +17,9 @@ const Products = () => {
         <>
         <Header/>
         <Container
+         sx={{paddingY: '1.5rem'}}
         maxWidth={'md'} >
-            <h3 className="text-center my-4">Listado de productos</h3>
+            <h3 className="text-center">Listado de productos</h3>
             <Search products={products}/>
             {error ?
                 (<div className="alert alert-danger mb-2" role="alert">
