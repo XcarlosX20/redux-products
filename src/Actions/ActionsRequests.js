@@ -7,6 +7,9 @@ import {
   EDIT_REQUEST_ERROR,
   EDIT_REQUEST_SUCCESS,
   EDIT_REQUEST_START,
+  GET_SUMMARY_START,
+  GET_SUMMARY_SUCCESS,
+  GET_SUMMARY_ERROR,
 } from '../types'
 export function getRequestAction() {
   return async (dispatch) => {
@@ -61,5 +64,29 @@ const editRequestSuccess = (requestEdited) => ({
 })
 const editRequestError = (boolean) => ({
   type: EDIT_REQUEST_ERROR,
+  payload: boolean
+})
+export function getSummaryAction() {
+  return async (dispatch) => {
+    dispatch(getSummaryStart())
+    try {
+      const res = await axiosClient.get('/api/summary')
+      console.log(res.data)
+      dispatch(getSummarySuccess(res.data))
+    } catch(err) {
+      console.log(err)
+      dispatch(getSummaryError(true))
+    }
+  }
+}
+const getSummaryStart = () => ({
+  type: GET_SUMMARY_START
+})
+const getSummarySuccess = (data) => ({
+  type: GET_SUMMARY_SUCCESS,
+  payload: data
+})
+const getSummaryError = (boolean) => ({
+  type: GET_SUMMARY_ERROR,
   payload: boolean
 })

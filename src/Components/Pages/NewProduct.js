@@ -15,10 +15,11 @@ import Swal from "sweetalert2";
 import Compressor from "compressorjs";
 import { PhotoCamera } from "@mui/icons-material";
 import NumberFormatCustom from '../../Hooks/NumberFormatCustom'
+import { formatAmountToNumber } from "../../helpers";
 const NewProduct = ({ history }) => {
   const dispatch = useDispatch();
   //useState
-  const [price, setPrice] = useState('')
+  const [numberFormat, setNumberFormat] = useState('')
   const [image, setImage] = useState({ img_html: "", image_to_Upload: "" });
   const [categoriesSelect, setCategoriesSelect] = useState("");
   //get store
@@ -46,7 +47,7 @@ const NewProduct = ({ history }) => {
     } else {
       await addProducto({
         productname,
-        price: Number(price),
+        price: formatAmountToNumber(price),
         image_to_Upload,
         company: _id,
         category: categoriesSelect,
@@ -109,9 +110,9 @@ const NewProduct = ({ history }) => {
                   label="Price"
                   variant="filled"
                   {...register("price", { required: true })}
-                  value={price}
+                  value={numberFormat}
                   placeholder={'$'}
-                  onChange={(e) => setPrice(e.target.value)}
+                  onChange={(e) => setNumberFormat(e.target.value)}
                   helperText="required"
                   error={errors.price}
                   InputProps={{

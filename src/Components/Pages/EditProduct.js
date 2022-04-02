@@ -13,6 +13,7 @@ import { Button, Input, Grid, TextField } from "@mui/material";
 import { PhotoCamera, CancelOutlined } from "@mui/icons-material";
 import NumberFormatCustom from '../../Hooks/NumberFormatCustom'
 import { useForm } from "react-hook-form";
+import { formatAmountToNumber } from "../../helpers";
 const EditProduct = () => {
   const dispatch = useDispatch();
   let history = useHistory();
@@ -26,7 +27,7 @@ const EditProduct = () => {
   } = useForm();
   //useState
   const [productname, setProductname] = useState(" ");
-  const [price, setPrice] = useState(0);
+  const [numberFormat, setNumberFormat] = useState(' ');
   const [image, setImage] = useState({ img_html: "", image_to_Upload: null });
   const [categoriesSelect, setCategoriesSelect] = useState("");
 
@@ -42,7 +43,7 @@ const EditProduct = () => {
     }
     const getEditProduct = () => {
       setProductname(editProduct.productname);
-      setPrice(editProduct.price);
+      setNumberFormat(editProduct.price);
       setImage({ ...image, img_html: editProduct.img });
       setCategoriesSelect(editProduct.category);
     };
@@ -56,7 +57,7 @@ const EditProduct = () => {
   
   const onSubmit = async (data, e) => {
     e.preventDefault();
-    if (productname === "" || !price || img_html === "") {
+    if (productname === "" || !numberFormat || img_html === "") {
       const msg = {
         txt: "all fields are required",
         class: "alert text-danger text-center text-uppercase p-3",
@@ -65,9 +66,10 @@ const EditProduct = () => {
     } else {
       e.preventDefault();
       const { _id, company } = editProduct;
+      let price = data.price.charAt(0) === '$' ? Number(numberFormat) : formatAmountToNumber(data.price)
       const product = {
         productname,
-        price: Number(price),
+        price,
         _id,
         image,
         company,
@@ -99,7 +101,7 @@ const EditProduct = () => {
   const disabledEdit = () => {
     if (editProduct) {
       const condition =
-        price == editProduct.price &&
+          numberFormat == editProduct.price &&
           productname === editProduct.productname &&
           categoriesSelect === editProduct.category &&
           !image_to_Upload
@@ -142,8 +144,8 @@ const EditProduct = () => {
                   label="Price"
                   variant="filled"
                   {...register("price", { required: true })}
-                  value={price}
-                  onChange={(e) => setPrice(e.target.value)}
+                  value={numberFormat}
+                  onChange={(e) => setNumberFormat(e.target.value)}
                   helperText="required"
                   error={errors.price}
                   InputProps={{
