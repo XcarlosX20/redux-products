@@ -6,8 +6,7 @@ import { getSummaryAction } from '../../Actions/ActionsRequests'
 import { formatAmount } from '../../helpers';
 import Side from '../Layout/Side';
 import Loading from '../Utils/Loading';
-import StoreIcon from '@mui/icons-material/Store';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import { Payment, ShoppingCart, Store } from '@mui/icons-material';
 const Summary = () => {
     const dispatch = useDispatch()
     const loadSummary = () => dispatch(getSummaryAction())
@@ -33,7 +32,7 @@ const Summary = () => {
             <Card sx={{padding : '1rem'}}>
               <Grid container direction='row' justifyContent="space-between">
                 <Typography>Income</Typography>
-              <StoreIcon/>
+              <Store/>
               </Grid>
               <Box className="format-amount-summary" color={'primary.main'}>
                 {formatAmount(summary.earnings)} 
@@ -43,7 +42,7 @@ const Summary = () => {
               <Typography>Number of sales</Typography>
               <Box className="format-amount-summary" color={'primary.main'}>
                 {summary.orderLength}
-                <ShoppingCartIcon/>
+                <ShoppingCart/>
               </Box>
              </Card>
              <Card sx={{padding : '1rem'}}>
