@@ -117,6 +117,16 @@ button[type="submit"]:disabled{
 .trapecio{
   clip-path: polygon(0 0, 100% 0%, 100% 86%, 0% 100%);
 }
+.format-amount span{
+font-size: 12.3px;
+}
+.format-amount-summary{
+  font-size: 3rem;
+}
+.format-amount-summary .format-amount span{
+  font-size: 16px;
+}
+
 @media (min-width:768px){
   .search-bar{
     width: 75% !important;
