@@ -1,6 +1,6 @@
 import axios from "axios";
 export const axiosClient = axios.create({
-     baseURL: process.env.REACT_APP_MYAPP_BACKEND,
+     baseURL: process.env.REACT_APP_MYAPP_BACKEND_LOCAL,
 })
 export const tokenAuth = (token) => {
      if(token){

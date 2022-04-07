@@ -96,7 +96,7 @@ const NewProduct = ({ history }) => {
               </div>
             ) : null}
             <form onSubmit={handleSubmit(onSubmit)}>
-              <div className="form-group">
+              <Grid container gap={2} direction={'row'} >
                 <TextField
                   id="filled-basic"
                   label="Name"
@@ -119,7 +119,7 @@ const NewProduct = ({ history }) => {
                     inputComponent: NumberFormatCustom,
                   }}
                 />
-              </div>
+              </Grid>
               <div className="form-group my-3">
                 <legend>Imagen:</legend>
                 <Grid paddingBottom={2}>

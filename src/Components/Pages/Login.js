@@ -38,20 +38,19 @@ const Login = () => {
       showPassword: !values.showPassword,
     });
   };
-
+//for email validation: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)/.test(values.email) 
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
   const login = async (e) => {
     e.preventDefault();
-    if(values.email && values.password){
+    if(values.password && values.email){
       const company = {
         companyEmail: values.email, password: values.password
       }
       await authCompany(company)
       history.push('/products')
     }
-
     else{
       Swal.fire({
         title: 'all fields are required',
