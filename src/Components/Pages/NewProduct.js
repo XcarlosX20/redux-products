@@ -204,9 +204,9 @@ const NewProduct = ({ history }) => {
                     Seleccione
                   </option>
                   <option value="new">-- Crear nueva categoria -- </option>
-                  {categories.map((category) => (
+                  {categories ? categories.map((category) => (
                     <option value={category}>{category.toUpperCase()}</option>
-                  ))}
+                  )): null}
                 </select>
               </div>
               <Grid container justifyContent={"center"}>

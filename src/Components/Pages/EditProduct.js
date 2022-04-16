@@ -240,19 +240,18 @@ const EditProduct = () => {
                   }}
                   className="form-control"
                 >
-                  <option
-                    selected
-                    value={editProduct.category ? editProduct.category : ""}
-                  >
-                    {editProduct.category
-                      ? editProduct.category.toUpperCase()
-                      : "-- Seleccionar --"}
+                  <option value="" disabled selected>
+                    Seleccione
                   </option>
                   <option value="new">-- Crear nueva categoria-- </option>
                   {categories.map((category) =>
                     category !== editProduct.category ? (
                       <option value={category}>{category.toUpperCase()}</option>
-                    ) : null
+                    ) : ( <option
+                      selected value={editProduct.category.toUpperCase()}
+                    >
+                     {editProduct.category.toUpperCase()}
+                    </option>)
                   )}
                 </select>
               </div>

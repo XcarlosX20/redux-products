@@ -17,10 +17,14 @@ const bull = (
 import { useDispatch, useSelector } from "react-redux";
 import { Grid } from "@mui/material";
 import { Delete } from "@mui/icons-material";
-
+import { setCategoriesAction } from "../../../Actions/ActionsCompany";
 const Categories = () => {
-  const [categorySelected, setCategorySelected] = useState(null);
+  let dispatch = useDispatch()
   const { _id, categories } = useSelector((state) => state.auth.company);
+  const deleteCategory = async(categorySelected) => {
+      let categoryDeleted = categories.filter((category) => category !== categorySelected)
+      dispatch(setCategoriesAction(categoryDeleted))
+  }
   return (
     <>
       <Side>
@@ -45,9 +49,7 @@ const Categories = () => {
               </CardContent>
               <CardActions>
                 <Button
-                  onClick={() => {
-                    setCategorySelected(category);
-                  }}
+                  onClick={() => deleteCategory(category)}
                   size="small"
                   color="error"
                 >
