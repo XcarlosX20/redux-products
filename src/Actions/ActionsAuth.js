@@ -21,7 +21,7 @@ export function authCompanyAction(company) {
     } catch (err) {
       console.log(err);
       Swal.fire({
-        title: err.response.data.msg && "There was an error",
+        title: err.response.data.msg || "There was an error",
         icon: "info",
       });
       dispatch(authCompanyError(true));
