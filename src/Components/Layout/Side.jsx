@@ -11,18 +11,12 @@ import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
 import useMediaQuery from "@mui/material/useMediaQuery";
-import Categories from "../Pages/custom/Categories";
-import Mycompany from "../Pages/custom/Mycompany";
 import Header from "./Header";
-import { Link } from "react-router-dom";
 import { AppBar } from "@mui/material";
-import { useHistory } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import toPathName from "../../Hooks/toFormatPath";
 const Side = (props) => {
-  //let {pathname} = useLocation()
-  let history = useHistory()
-  let options = ["categories", "my company", "Sales summary", "drafts"];
+  let options = ["categories", "work schedules", "my company", "Sales summary"];
   const mobile = useMediaQuery("(max-width:768px)");
   const drawerWidth = mobile ? 150 : 240;
   return (
@@ -44,13 +38,24 @@ const Side = (props) => {
             },
           }}
         >
-          <Toolbar sx={{ height: "150px"}} />
+          <Toolbar sx={{ height: "150px" }} />
           <Box sx={{ overflow: "auto" }}>
             <List>
               {options.map((text) => (
-                  <ListItem button key={text} onClick={()=> history.push(`/customization/${toPathName(text)}`)}>
+                <NavLink
+                  to={"/customization/" + toPathName(text)}
+                  activeStyle={{
+                    backgroundColor: "#f1f1f1",
+                  }}
+                >
+                  <ListItem
+                    button
+                    key={text}
+                    sx={{ backgroundColor: "inherit" }}
+                  >
                     <ListItemText primary={text} />
-                  </ListItem>     
+                  </ListItem>
+                </NavLink>
               ))}
             </List>
             <Divider />

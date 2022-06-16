@@ -11,7 +11,7 @@ import { getCompanyAction } from "../../Actions/ActionsAuth";
 import Compressor from "compressorjs";
 import { Button, Input, Grid, TextField } from "@mui/material";
 import { PhotoCamera, CancelOutlined } from "@mui/icons-material";
-import NumberFormatCustom from '../../Hooks/NumberFormatCustom'
+import NumberFormatCustom from "../../Hooks/NumberFormatCustom";
 import { useForm } from "react-hook-form";
 import { formatAmountToNumber } from "../../helpers";
 const EditProduct = () => {
@@ -27,7 +27,7 @@ const EditProduct = () => {
   } = useForm();
   //useState
   const [productname, setProductname] = useState(" ");
-  const [numberFormat, setNumberFormat] = useState(' ');
+  const [numberFormat, setNumberFormat] = useState(" ");
   const [image, setImage] = useState({ img_html: "", image_to_Upload: null });
   const [categoriesSelect, setCategoriesSelect] = useState("");
 
@@ -50,11 +50,11 @@ const EditProduct = () => {
     getEditProduct();
   }, [editProduct, history]);
   useEffect(() => {
-    if(editProduct){
+    if (editProduct) {
       setImage({ ...image, img_html: editProduct.img });
     }
-  }, [img_html === '' && editProduct])
-  
+  }, [img_html === "" && editProduct]);
+
   const onSubmit = async (data, e) => {
     e.preventDefault();
     if (productname === "" || !numberFormat || img_html === "") {
@@ -66,7 +66,10 @@ const EditProduct = () => {
     } else {
       e.preventDefault();
       const { _id, company } = editProduct;
-      let price = data.price.charAt(0) === '$' ? Number(numberFormat) : formatAmountToNumber(data.price)
+      let price =
+        data.price.charAt(0) === "$"
+          ? Number(numberFormat)
+          : formatAmountToNumber(data.price);
       const product = {
         productname,
         price,
@@ -101,10 +104,10 @@ const EditProduct = () => {
   const disabledEdit = () => {
     if (editProduct) {
       const condition =
-          numberFormat == editProduct.price &&
-          productname === editProduct.productname &&
-          categoriesSelect === editProduct.category &&
-          !image_to_Upload
+        numberFormat == editProduct.price &&
+        productname === editProduct.productname &&
+        categoriesSelect === editProduct.category &&
+        !image_to_Upload;
       return condition || loading ? true : loading;
     }
   };
@@ -128,8 +131,8 @@ const EditProduct = () => {
               <div className="alert alert-danger mt-3" role="alert"></div>
             ) : null}
             <form onSubmit={handleSubmit(onSubmit)}>
-              <Grid container gap={2} direction={'row'} className="form-group">
-              <TextField
+              <Grid container gap={2} direction={"row"} className="form-group">
+                <TextField
                   id="filled-basic"
                   label="Name"
                   variant="filled"
@@ -158,26 +161,28 @@ const EditProduct = () => {
                 <Grid paddingBottom={2}>
                   {!image_to_Upload ? (
                     <label htmlFor="contained-button-file">
-                    <Input
-                      sx={{ display: "none" }}
-                      onChange={handleImage}
-                      accept="image/*"
-                      id="contained-button-file"
-                      multiple
-                      type="file"
-                    />
+                      <Input
+                        sx={{ display: "none" }}
+                        onChange={handleImage}
+                        accept="image/*"
+                        id="contained-button-file"
+                        multiple
+                        type="file"
+                      />
+                      <Button
+                        endIcon={<PhotoCamera />}
+                        variant="contained"
+                        component="span"
+                      >
+                        change image
+                      </Button>
+                    </label>
+                  ) : (
                     <Button
-                      endIcon={<PhotoCamera />}
-                      variant="contained"
-                      component="span"
-                    >
-                      change image
-                    </Button>
-                  </label>
-                  ): (
-                    <Button
-                      onClick={()=> setImage({ img_html: "", image_to_Upload: null })}
-                      endIcon={<CancelOutlined/>}
+                      onClick={() =>
+                        setImage({ img_html: "", image_to_Upload: null })
+                      }
+                      endIcon={<CancelOutlined />}
                       variant="contained"
                       component="span"
                       color="error"
@@ -232,7 +237,7 @@ const EditProduct = () => {
                               });
                             });
                         }
-                        e.target.value = editProduct.category
+                        e.target.value = editProduct.category;
                       });
                     } else {
                       setCategoriesSelect(e.target.value);
@@ -247,11 +252,14 @@ const EditProduct = () => {
                   {categories.map((category) =>
                     category !== editProduct.category ? (
                       <option value={category}>{category.toUpperCase()}</option>
-                    ) : ( <option
-                      selected value={editProduct.category.toUpperCase()}
-                    >
-                     {editProduct.category.toUpperCase()}
-                    </option>)
+                    ) : (
+                      <option
+                        selected
+                        value={editProduct.category.toUpperCase()}
+                      >
+                        {editProduct.category.toUpperCase()}
+                      </option>
+                    )
                   )}
                 </select>
               </div>
