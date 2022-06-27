@@ -14,12 +14,11 @@ import { Button, Grid, Input, TextField } from "@mui/material";
 import Swal from "sweetalert2";
 import Compressor from "compressorjs";
 import { PhotoCamera } from "@mui/icons-material";
-import NumberFormatCustom from '../../Hooks/NumberFormatCustom'
-import { formatAmountToNumber } from "../../helpers";
+import NumberFormatCustom from "../../Hooks/NumberFormatCustom";
 const NewProduct = ({ history }) => {
   const dispatch = useDispatch();
   //useState
-  const [numberFormat, setNumberFormat] = useState('')
+  const [numberFormat, setNumberFormat] = useState("");
   const [image, setImage] = useState({ img_html: "", image_to_Upload: "" });
   const [categoriesSelect, setCategoriesSelect] = useState("");
   //get store
@@ -32,11 +31,10 @@ const NewProduct = ({ history }) => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm();
   const onSubmit = async (data, e) => {
-    e.preventDefault()
+    e.preventDefault();
     const { productname, price } = data;
     if (image_to_Upload === "") {
       const msg = {
@@ -47,7 +45,7 @@ const NewProduct = ({ history }) => {
     } else {
       await addProducto({
         productname,
-        price: formatAmountToNumber(price),
+        price: Number(numberFormat),
         image_to_Upload,
         company: _id,
         category: categoriesSelect,
@@ -96,7 +94,7 @@ const NewProduct = ({ history }) => {
               </div>
             ) : null}
             <form onSubmit={handleSubmit(onSubmit)}>
-              <Grid container gap={2} direction={'row'} >
+              <Grid container gap={2} direction={"row"}>
                 <TextField
                   id="filled-basic"
                   label="Name"
@@ -111,7 +109,7 @@ const NewProduct = ({ history }) => {
                   variant="filled"
                   {...register("price", { required: true })}
                   value={numberFormat}
-                  placeholder={'$'}
+                  placeholder={"$"}
                   onChange={(e) => setNumberFormat(e.target.value)}
                   helperText="required"
                   error={errors.price}
@@ -204,9 +202,13 @@ const NewProduct = ({ history }) => {
                     Seleccione
                   </option>
                   <option value="new">-- Crear nueva categoria -- </option>
-                  {categories ? categories.map((category) => (
-                    <option value={category}>{category.toUpperCase()}</option>
-                  )): null}
+                  {categories
+                    ? categories.map((category) => (
+                        <option value={category}>
+                          {category.toUpperCase()}
+                        </option>
+                      ))
+                    : null}
                 </select>
               </div>
               <Grid container justifyContent={"center"}>

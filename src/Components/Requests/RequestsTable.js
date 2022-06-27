@@ -26,16 +26,16 @@ const RequestsTable = () => {
   const { requests, loading } = useSelector((state) => state.request);
   return (
     <>
-      {loading ? (
+      {loading && (
         <Box sx={dialog}>
           <Loading />
         </Box>
-      ) : null}
+      )}
       {requests.length !== 0 ? (
         requests.map((order) => (
           <Order key={order._id} order={order} usdToBs={usdToBs} />
         ))
-      ) : (
+      ) : !loading ? (
         <Box
           sx={{
             display: "flex",
@@ -46,7 +46,7 @@ const RequestsTable = () => {
         >
           <Typography textAlign={"center"}>there're no orders yet</Typography>
         </Box>
-      )}
+      ) : null}
     </>
   );
 };
